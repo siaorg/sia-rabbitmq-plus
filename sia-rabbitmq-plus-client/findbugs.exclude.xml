@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<FindBugsFilter>
+	<Match>
+		<Class name="com.creditease.skytrain.binding.SpringWorker$SpringTask" />
+	</Match>
+	<Match>
+		<Class name="com.creditease.skytrain.binding.PropertyHelper" />
+	</Match>
+	<Match>
+		<Class name="com.creditease.skytrain.binding.Initial" />
+	</Match>
+</FindBugsFilter>

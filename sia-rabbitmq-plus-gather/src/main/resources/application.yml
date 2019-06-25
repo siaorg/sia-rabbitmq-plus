@@ -1,0 +1,59 @@
+#应用名称
+spring.application.name: sia-rabbitmq-plus-gather
+#日志配置
+logging.file: ./logs/${spring.application.name}.log
+
+#应用中文名称
+spring.application.cnname: 队列信息采集系统
+#应用端口号
+server.port: 17004
+#配置报警邮箱，当该服务出现问题后会触发报警(建议配置成组邮箱)，如下：
+eureka.instance.metadataMap.alarmEmail: sia.list@creditease.cn
+SKYTRAIN_DEFAULT_EMAIL: sia.list@creditease.cn
+ENABLE_EMAIL_ALARM: true
+
+#开启全信息展示，默认值为true，不展示所有信息
+endpoints.health.sensitive: false
+management.security.enabled: false
+
+# 注册中心地址
+eureka.client.serviceUrl.defaultZone: http://127.0.0.1:8761/eureka/
+
+# 注册时使用ip而不是主机名
+eureka.instance.preferIpAddress: true
+# ${spring.cloud.client.ipAddress} 为IP地址
+eureka.instance.instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+
+spring.datasource.skytrain:
+  url: jdbc:mysql://127.0.0.1:3603/rabbitmqplus?characterEncoding=utf-8&autoReconnect=true
+  username: root
+  password: 123456
+  driverClassName: com.mysql.jdbc.Driver
+
+# REDIS (RedisProperties)
+redis.type: single
+redis.connect.url: 127.0.0.1:6379
+# 只有哨兵模式用到，单点和集群模式不用
+redis.master:
+# 按需配置
+redis.password:
+# 只有单点和哨兵模式用到，集群模式不用
+redis.db.index: 0
+# pool settings ...
+# 最大连接数，默认8个，一些低版本的包是maxActive，如果赋值为-1，则表示不限制；如果pool已经分配了maxActive个jedis实例，则此时pool的状态为exhausted(耗尽)
+redis.max.active: 500
+# 控制一个pool最多有多少个状态为idle(空闲的)的jedis实例
+redis.max.idle: 10
+# 控制一个pool最少有多少个状态为idle(空闲的)的jedis实例
+redis.min.idle: 5
+# 等待可用连接的最大时间，单位毫秒，默认值为-1，表示永不超时。如果超过等待时间，则直接抛出JedisConnectionException；
+redis.max.wait: 60000
+# 在borrow一个jedis实例时，是否提前进行validate操作；如果为true，则得到的jedis实例均是可用的
+redis.testOnBorrow: true
+# jedis调用returnObject方法时，是否进行有效检查
+redis.testOnReturn: false
+
+#listen to MQ server
+SKYTRAIN_RABBITMQ_HTTP: http://127.0.0.1:15672/api/queues
+SKYTRAIN_RABBITMQ_HTTP_USERNAME: sia
+SKYTRAIN_RABBITMQ_HTTP_PASSWORD: Sia@888888

@@ -1,0 +1,8 @@
+spring.application.name: sia-rabbitmq-plus-heartbeat
+
+#spring.cloud.config.profile: ${spring.cloud.config.profile}
+#spring.cloud.config.label: ${spring.cloud.config.label}
+#spring.cloud.config.uri: ${spring.cloud.config.uri}
+
+#日志配置
+logging.file: ./logs/${spring.application.name}.log

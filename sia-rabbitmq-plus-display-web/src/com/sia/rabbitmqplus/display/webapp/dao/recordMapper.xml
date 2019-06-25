@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+    namespace：必须与对应的接口全类名一致
+    id:必须与对应接口的某个对应的方法名一致
+ -->
+
+<mapper namespace="com.sia.rabbitmqplus.display.webapp.dao.RecordMapper">
+
+    <!-- mybsits_config中配置的alias类别名,也可直接配置resultType为类路劲 -->
+
+    <select id="findAsMinute" parameterType="Record" resultType="Record">
+        select un_consume_message_num as unConsumeMessageNum,
+        publish_message_num as publishMessageNum,
+        deliver_message_num as deliverMessageNum,worktime
+        from skytrain_queue_message_info_history
+        where queue_name = #{queueName} and
+        worktime between #{startTime} and #{endTime}
+    </select>
+
+    <select id="findAsHour" parameterType="Record" resultType="Record">
+        select sum(publish_message_num) as publishMessageNumSum ,sum(deliver_message_num) as deliverMessageNumSum,
+        date_format(worktime,'%Y-%m-%d %H') as realtime
+        from skytrain_queue_message_info_history
+        where queue_name = #{queueName} and
+        worktime between #{startTime} and #{endTime}
+        group by date_format(worktime,'%Y-%m-%d %H:00:00')
+    </select>
+
+    <select id="findAsDay" parameterType="Record" resultType="Record">
+        select sum(publish_message_num) as publishMessageNumSum ,sum(deliver_message_num) as deliverMessageNumSum,
+        date_format(worktime,'%Y-%m-%d') as realtime
+        from skytrain_queue_message_info_history
+        where queue_name = #{queueName} and
+        worktime between #{startTime} and #{endTime}
+        group by date_format(worktime,'%Y-%m-%d 00:00:00')
+    </select>
+
+
+</mapper>

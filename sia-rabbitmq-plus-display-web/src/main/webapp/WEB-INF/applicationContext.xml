@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.0.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-4.0.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <!-- 1. 数据源 : DriverManagerDataSource -->
+    <bean id="dataSource"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://10.100.20.33:3306/zoner"/>
+        <property name="username" value="zoner"/>
+        <property name="password" value="sgj)^3I"/>
+    </bean>
+
+    <!--
+        2. mybatis的SqlSession的工厂: SqlSessionFactoryBean dataSource:引用数据源
+
+        MyBatis定义数据源,同意加载配置
+    -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"></property>
+        <property name="configLocation" value="classpath:mybatis/mybatis.xml"/>
+    </bean>
+
+    <!--
+        3. mybatis自动扫描加载Sql映射文件/接口 : MapperScannerConfigurer sqlSessionFactory
+
+        basePackage:指定sql映射文件/接口所在的包（自动扫描）
+    -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.tgb.mapper"></property>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+    </bean>
+
+    <!--
+        4. 事务管理 : DataSourceTransactionManager dataSource:引用上面定义的数据源
+    -->
+    <bean id="txManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+
+    <!-- 5. 使用声明式事务
+         transaction-manager：引用上面定义的事务管理器
+     -->
+    <tx:annotation-driven transaction-manager="txManager"/>
+
+
+    <bean id="recordMapperImpl" class="com.sia.rabbitmqplus.display.webapp.dao.RecordMapperImpl">
+    </bean>
+
+    <bean id="recordService" class="com.sia.rabbitmqplus.display.webapp.services.RecordService">
+    </bean>
+
+    <bean id="viewService" class="com.sia.rabbitmqplus.display.webapp.services.ViewService">
+    </bean>
+
+</beans>

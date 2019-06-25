@@ -1,0 +1,11 @@
+spring.application.name: sia-rabbitmq-plus-display
+
+#日志配置
+logging.file: ./logs/${spring.application.name}.log
+
+
+
+
+
+
+

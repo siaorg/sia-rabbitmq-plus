@@ -1,0 +1,40 @@
+#Ignore Mac OS X DS Store
+.DS_Store
+
+*~
+*.swp
+.project
+.settings
+.classpath
+
+# Ignore all build/dist directories
+target
+
+# Ignore InteliJ Idea project files
+.idea
+.idea/*
+*.iml
+*.iws
+*.ipr
+
+# Ignore all log files
+*.log
+
+#Ignore Test Output
+test-output
+/begin.log.2016-08-12
+/begin.log.2016-08-15
+/begin.log.2016-08-16
+/call.log.2016-08-12
+/call.log.2016-08-15
+/call.log.2016-08-16
+/hello_fanout.log.2016-08-15
+/hello.log.2016-08-15
+/middle.log.2016-08-12
+/middle.log.2016-08-15
+/middle.log.2016-08-16
+/skytrain_one.log.2016-08-16
+/skytrain_two.log.2016-08-16
+/test_fanout.log.2016-08-15
+/test_fanout.log.2016-08-16
+/bin/

@@ -1,0 +1,1 @@
+const baseUrl = "http://10.143.128.216:17021/"; export default baseUrl;
