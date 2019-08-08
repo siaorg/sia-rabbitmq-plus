@@ -1,7 +1,8 @@
 package com.sia.rabbitmqplus.pojo;
 
 /**
- * Created by xinliang on 16/11/11.
+ * @author  xinliang
+ * @date 16/11/11
  */
 public class Queue {
 

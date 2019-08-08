@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.concurrent.*;
 
 /**
- * Created by xinliang on 16/8/3.
+ * @author xinliang on 16/8/3.
  */
 public class ExecThreadPool {
 

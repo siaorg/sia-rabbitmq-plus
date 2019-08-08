@@ -1,7 +1,8 @@
 package com.sia.rabbitmqplus.binding;
 
 /**
- * Created by xinliang on 16/8/3.
+ * @author xinliang
+ * @date 16/8/3
  */
 public class Const {
 
@@ -11,6 +12,8 @@ public class Const {
 	public static String SKYTRAIN_LOG_ROOT = "";
 	public static String SKYTRAIN_LOG_FILESIZE = "20MB";
 	public static int SKYTRAIN_LOG_FILENUMS = 10;
+	public static final String SKYTRAIN_DAILY_LOG = "SKYTRAIN_DAILY_LOG";
+
 
 	protected static final int CHANNELPOOL_QUEUE_SIZE = 10;
 	protected static final String CLASS_NAME = "className";
@@ -22,14 +25,14 @@ public class Const {
 
 	public static final String SIA_LOG_PREFIX = "skytrain_log->";
 
-	protected static final String RABBITMQ_USERNAME = "sia";
-	protected static final String RABBITMQ_PASSWORD = "Sia@888888";
+	protected static final String RABBITMQ_USERNAME = "admin";
+	protected static final String RABBITMQ_PASSWORD = "admin";
 
 	protected static final String ACK_MODEL = "ackModel";
 	protected static final String ACK = "ACK";
 	protected static final String NACK = "NACK";
 	protected static final String DEFAULT = "DEFAULT";
-	
+
 	private Const() {
 
 	}

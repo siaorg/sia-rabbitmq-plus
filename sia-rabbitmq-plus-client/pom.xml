@@ -62,6 +62,15 @@
 	</dependencies>
 
 	<build>
+		<resources>
+			<resource>
+				<directory>src/test/java/</directory>
+				<includes>
+					<include>**/*.properties</include>
+				</includes>
+				<targetPath>target/test-classes</targetPath>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<artifactId>maven-dependency-plugin</artifactId>

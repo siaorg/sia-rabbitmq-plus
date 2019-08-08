@@ -1,6 +1,6 @@
 package com.sia.rabbitmqplus.display.mapper;
 
-import com.sia.rabbitmqplus.display.pojo.Record;
+import com.sia.rabbitmqplus.common.pojo.Record;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +10,11 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * Created by xinliang on 16/11/16.
+ * @author xinliang on 16/11/16.
  */
 @Repository
 public class RecordMapper {
 
-    // @Resource(name = "sqlSessionFactory")
     @Autowired
     @Qualifier("sqlSessionFactory")
     private SqlSessionFactory sqlSessionFactory;

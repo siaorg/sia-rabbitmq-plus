@@ -1,6 +1,6 @@
 package com.sia.rabbitmqplus.gather.database;
 
-import com.sia.rabbitmqplus.gather.pojo.QueueInfo;
+import com.sia.rabbitmqplus.common.pojo.QueueInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
@@ -49,7 +49,6 @@ public class DataBaseHandler {
         final Timestamp ts = new Timestamp(System.currentTimeMillis());
         skytrainJdbcTemplate.batchUpdate(INSERT_QUEUE_INFO_SQL, new BatchPreparedStatementSetter() {
 
-            @Override
             public void setValues(PreparedStatement psts, int i) throws SQLException {
 
                 QueueInfo queueInfo = queueInfos.get(i);
@@ -60,7 +59,6 @@ public class DataBaseHandler {
                 psts.setTimestamp(5, ts);
             }
 
-            @Override
             public int getBatchSize() {
 
                 return queueInfos.size();
@@ -109,12 +107,12 @@ public class DataBaseHandler {
     /**
      * 备库中查询数据条数
      *
-     * @param SQL
+     * @param sql
      * @return
      */
-    public long getNumFromOtherDataSource(String SQL) {
+    public long getNumFromOtherDataSource(String sql) {
 
-        return skytrainJdbcTemplate.queryForObject(SQL, Long.class);
+        return skytrainJdbcTemplate.queryForObject(sql, Long.class);
     }
 
 }

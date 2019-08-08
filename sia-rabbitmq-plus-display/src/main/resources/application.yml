@@ -10,7 +10,7 @@ endpoints.health.sensitive: false
 management.security.enabled: false
 
 # 注册中心地址
-eureka.client.serviceUrl.defaultZone: http://127.0.0.1:8761/eureka/
+eureka.client.serviceUrl.defaultZone: http://10.143.131.12:19002/eureka/
 
 # 注册时使用ip而不是主机名
 eureka.instance.preferIpAddress: true
@@ -20,7 +20,7 @@ eureka.instance.instance-id: ${spring.cloud.client.ipAddress}:${server.port}
 spring.datasource.skytrain:
   url: jdbc:mysql://127.0.0.1:3306/rabbitmqplus?characterEncoding=utf-8&autoReconnect=true
   username: root
-  password: 123456
+  password: root
   driverClassName: com.mysql.jdbc.Driver
 
 # REDIS (RedisProperties)

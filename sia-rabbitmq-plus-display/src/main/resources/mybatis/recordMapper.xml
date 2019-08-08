@@ -7,8 +7,8 @@
 
 	<!-- mybsits_config中配置的alias类别名,也可直接配置resultType为类路劲 -->
 
-	<select id="findAsMinute" parameterType="com.sia.rabbitmqplus.display.pojo.Record"
-		resultType="com.sia.rabbitmqplus.display.pojo.Record">
+	<select id="findAsMinute" parameterType="com.sia.rabbitmqplus.common.pojo.Record"
+		resultType="com.sia.rabbitmqplus.common.pojo.Record">
 		select un_consume_message_num as unConsumeMessageNum,
 		publish_message_num as publishMessageNum,
 		deliver_message_num as
@@ -19,8 +19,8 @@
 		#{endTime}
 	</select>
 
-	<select id="findAsHour" parameterType="com.sia.rabbitmqplus.display.pojo.Record"
-		resultType="com.sia.rabbitmqplus.display.pojo.Record">
+	<select id="findAsHour" parameterType="com.sia.rabbitmqplus.common.pojo.Record"
+		resultType="com.sia.rabbitmqplus.common.pojo.Record">
 		select sum(publish_message_num) as publishMessageNumSum
 		,sum(deliver_message_num) as deliverMessageNumSum,
 		date_format(worktime,'%Y-%m-%d %H') as realtime
@@ -32,8 +32,8 @@
 		date_format(worktime,'%Y-%m-%d %H')
 	</select>
 
-	<select id="findAsDay" parameterType="com.sia.rabbitmqplus.display.pojo.Record"
-		resultType="com.sia.rabbitmqplus.display.pojo.Record">
+	<select id="findAsDay" parameterType="com.sia.rabbitmqplus.common.pojo.Record"
+		resultType="com.sia.rabbitmqplus.common.pojo.Record">
 		select sum(publish_message_num) as publishMessageNumSum
 		,sum(deliver_message_num) as deliverMessageNumSum,
 		date_format(worktime,'%Y-%m-%d') as realtime

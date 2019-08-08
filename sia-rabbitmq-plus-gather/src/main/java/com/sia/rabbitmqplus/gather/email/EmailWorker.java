@@ -1,7 +1,7 @@
 package com.sia.rabbitmqplus.gather.email;
 
-import com.sia.rabbitmqplus.gather.pojo.QueueInfo;
-import com.sia.rabbitmqplus.helpers.JSONHelper;
+import com.sia.rabbitmqplus.common.helpers.JSONHelper;
+import com.sia.rabbitmqplus.common.pojo.QueueInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +15,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author lipengfei
+ */
 @Component
 public class EmailWorker {
 

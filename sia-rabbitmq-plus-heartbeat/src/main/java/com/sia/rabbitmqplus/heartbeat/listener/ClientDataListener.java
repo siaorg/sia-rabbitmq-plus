@@ -1,9 +1,5 @@
 package com.sia.rabbitmqplus.heartbeat.listener;
 
-import com.sia.rabbitmqplus.heartbeat.helper.DateFormatHelper;
-import com.sia.rabbitmqplus.heartbeat.helper.JSONHelper;
-import com.sia.rabbitmqplus.heartbeat.pojo.Queue;
-import com.sia.rabbitmqplus.heartbeat.pojo.QueueInfo;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,6 +8,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import com.sia.rabbitmqplus.common.constant.QueueType;
+import com.sia.rabbitmqplus.common.helpers.DateFormatHelper;
+import com.sia.rabbitmqplus.common.helpers.JSONHelper;
+import com.sia.rabbitmqplus.common.pojo.Queue;
+import com.sia.rabbitmqplus.common.pojo.QueueInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.Message;
@@ -22,7 +23,8 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
 /**
- * Created by xinliang on 16/11/11.
+ * @author xinliang
+ * @date 16/11/11.
  */
 @Component
 @RabbitListener(queues = "SKYTRAIN_CLIENT_LISTEN_QUEUE")
@@ -49,10 +51,10 @@ public class ClientDataListener {
             String queueName = data.getQueueName();
             
             String type = data.getType();
-            if ("deliver".equals(type)) {
+            if (QueueType.DELIVER.equals(type)) {
                 updateDeliver(data, queueName);
             }
-            else if ("publish".equals(type)) {
+            else if (QueueType.PUBLISH.equals(type)) {
                 updatePublish(data, queueName);
             }
             else {

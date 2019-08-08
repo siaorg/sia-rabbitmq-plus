@@ -1,8 +1,8 @@
 package com.sia.rabbitmqplus.display.services;
 
 
+import com.sia.rabbitmqplus.common.pojo.Record;
 import com.sia.rabbitmqplus.display.mapper.RecordMapper;
-import com.sia.rabbitmqplus.display.pojo.Record;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +10,7 @@ import java.util.List;
 
 
 /**
- * Created by xinliang on 16/11/16.
+ * @author xinliang on 16/11/16.
  */
 @Service
 public class RecordService {

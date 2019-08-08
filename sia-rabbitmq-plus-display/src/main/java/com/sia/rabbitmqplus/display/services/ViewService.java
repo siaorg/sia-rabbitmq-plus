@@ -1,6 +1,7 @@
 package com.sia.rabbitmqplus.display.services;
 
-import com.sia.rabbitmqplus.display.pojo.QueueInfo;
+
+import com.sia.rabbitmqplus.common.pojo.QueueInfo;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +14,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Created by xinliang on 16/11/16.
+ * @author xinliang on 16/11/16.
  */
 @Service
 public class ViewService {

@@ -15,10 +15,10 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import javax.sql.DataSource;
 
 /**
- * Created by xinliang on 2017/9/10.
+ * @author  xinliang
+ * @date 2017/9/10.
  */
 @Configuration
-// @MapperScan(basePackages = "com.creditease.skytrain.display.mapper", sqlSessionTemplateRef = "sqlSessionTemplate")
 public class DataSourceConfig {
 
     @Bean(name = "skytrainDataSource")

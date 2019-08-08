@@ -9,10 +9,13 @@ import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * @author lipengfei
+ */
 public class SIA {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(SIA.class);
-	private static final Provider provider = new Provider();
+	private static final Provider PROVIDER = new Provider();
 
 	private SIA() {
 
@@ -40,7 +43,7 @@ public class SIA {
 	 */
 	public static boolean send(String exchangeName, String queueName, String message) {
 		try {
-			provider.send(exchangeName, queueName, message);
+			PROVIDER.send(exchangeName, queueName, message);
 		} catch (Exception ex) {
 			LOGGER.error(Const.SIA_LOG_PREFIX, ex);
 			return false;
@@ -73,7 +76,7 @@ public class SIA {
 				LOGGER.warn(Const.SIA_LOG_PREFIX + "方法[send(SIAMessage message)]没有设置发送消息类型，系统给定默认值为:["
 						+ message.getMessageType() + "]");
 			}
-			provider.send(message);
+			PROVIDER.send(message);
 		} catch (Exception ex) {
 			LOGGER.error(Const.SIA_LOG_PREFIX, ex);
 			return false;
@@ -120,8 +123,8 @@ public class SIA {
 						+ message.getMessageType() + "]");
 			}
 			LOGGER.info(Const.SIA_LOG_PREFIX + "同步链条模式的回调队列名为:[" + message.getReceiveQueueName() + "]");
-			provider.beginSend(message);
-			return provider.receive(message);
+			PROVIDER.beginSend(message);
+			return PROVIDER.receive(message);
 		} catch (Exception ex) {
 			LOGGER.error(Const.SIA_LOG_PREFIX + "beginSend", ex);
 		}
@@ -166,7 +169,7 @@ public class SIA {
 						+ message.getMessageType() + "]");
 			}
 			LOGGER.info(Const.SIA_LOG_PREFIX + "同步链条模式的回调队列名为:[" + message.getReceiveQueueName() + "]");
-			provider.middleSend(message);
+			PROVIDER.middleSend(message);
 		} catch (Exception ex) {
 			LOGGER.error(Const.SIA_LOG_PREFIX + "middleSend", ex);
 			return false;
@@ -212,7 +215,7 @@ public class SIA {
 						+ message.getMessageType() + "]");
 			}
 			LOGGER.info(Const.SIA_LOG_PREFIX + "同步链条模式的回调队列名为:[" + message.getReceiveQueueName() + "]");
-			provider.endSend(message);
+			PROVIDER.endSend(message);
 		} catch (Exception ex) {
 			LOGGER.error(Const.SIA_LOG_PREFIX + "endSend", ex);
 			return false;
@@ -246,7 +249,7 @@ public class SIA {
 				LOGGER.warn(Const.SIA_LOG_PREFIX + "方法[SIA.sendGroup(SIAMessage message]没有设置发送消息类型，系统给定默认值为:["
 						+ message.getMessageType() + "]");
 			}
-			provider.send(message);
+			PROVIDER.send(message);
 		} catch (Exception ex) {
 			LOGGER.error(Const.SIA_LOG_PREFIX + "sendGroup", ex);
 		}

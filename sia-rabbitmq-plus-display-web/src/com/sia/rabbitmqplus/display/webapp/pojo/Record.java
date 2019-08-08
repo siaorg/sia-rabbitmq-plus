@@ -1,7 +1,7 @@
 package com.sia.rabbitmqplus.display.webapp.pojo;
 
 /**
- * Created by xinliang on 16/11/16.
+ * @author xinliang on 16/11/16.
  */
 public class Record {
 

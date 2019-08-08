@@ -52,8 +52,8 @@ public class NetworkHelper {
      */
     public static String getIpByEthNum(String ethNum) {
 
-        Map<String, String> IPs = getAllIpsByInetAddress();
-        return IPs.get(ethNum);
+        Map<String, String> ips = getAllIpsByInetAddress();
+        return ips.get(ethNum);
 
     }
 
@@ -68,7 +68,7 @@ public class NetworkHelper {
      */
     public static Map<String, String> getAllIpsByInetAddress() {
 
-        Map<String, String> IPs = new HashMap<String, String>();
+        Map<String, String> ipMap = new HashMap<String, String>(16);
 
         InetAddress address;
         Enumeration<NetworkInterface> allNetInterfaces;
@@ -87,7 +87,7 @@ public class NetworkHelper {
                                 && address.getHostAddress().indexOf(":") == -1) {
                             String ethNum = netInterface.getName();
                             String ip = address.getHostAddress();
-                            IPs.put(ethNum, ip);
+                            ipMap.put(ethNum, ip);
                         }
                     }
                 }
@@ -97,7 +97,7 @@ public class NetworkHelper {
             // ignore
         }
 
-        return IPs;
+        return ipMap;
     }
 
     /**
@@ -108,8 +108,8 @@ public class NetworkHelper {
     public static String getServerIp() {
 
         // return first valid address
-        Map<String, String> IPs = getAllIpsByInetAddress();
-        for (Map.Entry<String, String> item : IPs.entrySet()) {
+        Map<String, String> ips = getAllIpsByInetAddress();
+        for (Map.Entry<String, String> item : ips.entrySet()) {
             return item.getValue();
         }
         // backup

@@ -11,16 +11,16 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.regex.Pattern;
 
 /**
- * Created by xinliang on 16/8/24.
+ * @author xinliang on 16/8/24.
  */
 public class Initial {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Initial.class);
-    private static final AtomicBoolean started = new AtomicBoolean(false);
+    private static final AtomicBoolean STARTED = new AtomicBoolean(false);
     private static final AtomicBoolean READY = new AtomicBoolean(false);
-    private static final CountDownLatch startGate = new CountDownLatch(1);
+    private static final CountDownLatch START_GATE = new CountDownLatch(1);
     private static final String PARAMETER_FILE = "siaparameters.properties";
-    private static final Pattern pattern = Pattern.compile("^(v-)?.*(.list|([0-9])*)@(creditease.cn|yirendai.com)$",
+    private static final Pattern PATTERN = Pattern.compile("^(v-)?.*(.list|([0-9])*)@(creditease.cn|yirendai.com)$",
             Pattern.CASE_INSENSITIVE);
     protected static String projectName;
     protected static String projectDescription;
@@ -34,8 +34,7 @@ public class Initial {
     static {
         try {
             localIpAddress = NetworkHelper.getServerIp();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             LOGGER.error(Const.SIA_LOG_PREFIX, e);
         }
     }
@@ -58,7 +57,7 @@ public class Initial {
      */
     protected static void init() {
 
-        if (started.compareAndSet(false, true)) {
+        if (STARTED.compareAndSet(false, true)) {
             Properties prop = PropertyHelper.load(PARAMETER_FILE);
             LOGGER.info(Const.SIA_LOG_PREFIX + "[======配置文件<" + PARAMETER_FILE + ">的内容======]");
             Set<Object> keys = prop.keySet();
@@ -114,9 +113,8 @@ public class Initial {
     public static void await() {
 
         try {
-            startGate.await(60000L, TimeUnit.MILLISECONDS);
-        }
-        catch (InterruptedException e) {
+            START_GATE.await(60000L, TimeUnit.MILLISECONDS);
+        } catch (InterruptedException e) {
             LOGGER.error(Const.SIA_LOG_PREFIX + "[等待与服务器建立连接时出错]" + e.getMessage());
         }
 
@@ -124,7 +122,7 @@ public class Initial {
 
     private static void release() {
 
-        startGate.countDown();
+        START_GATE.countDown();
 
     }
 
@@ -137,11 +135,11 @@ public class Initial {
 
         if (root == null) {
             LOGGER.info(Const.SIA_LOG_PREFIX + "[默认消息日志输出路径]");
-        }
-        else {
+        } else {
             Const.SKYTRAIN_LOG_ROOT = root.trim();
-            if (!Const.SKYTRAIN_LOG_ROOT.endsWith("/"))
+            if (!Const.SKYTRAIN_LOG_ROOT.endsWith("/")) {
                 Const.SKYTRAIN_LOG_ROOT += "/";
+            }
             LOGGER.info(Const.SIA_LOG_PREFIX + "[指定消息日志输出路径:<" + Const.SKYTRAIN_LOG_ROOT + ">]");
         }
     }
@@ -150,8 +148,7 @@ public class Initial {
 
         if (fileSize == null) {
             LOGGER.info(Const.SIA_LOG_PREFIX + "[默认消息日志大小：20M]");
-        }
-        else {
+        } else {
             Const.SKYTRAIN_LOG_FILESIZE = fileSize.trim();
             LOGGER.info(Const.SIA_LOG_PREFIX + "[指定消息日志大小：" + Const.SKYTRAIN_LOG_FILESIZE + "]");
         }
@@ -161,13 +158,11 @@ public class Initial {
 
         if (fileNums == null) {
             LOGGER.info(Const.SIA_LOG_PREFIX + "[默认消息日志个数：10]");
-        }
-        else {
+        } else {
             int size = 10;
             try {
                 size = Integer.parseInt(fileNums.trim());
-            }
-            catch (NumberFormatException e) {
+            } catch (NumberFormatException e) {
                 LOGGER.error(Const.SIA_LOG_PREFIX, e);
             }
             if (size > 0) {
@@ -180,7 +175,7 @@ public class Initial {
     private static boolean checkCrediteaseEmail(String emails) {
 
         for (String email : emails.split(",")) {
-            if (!pattern.matcher(email).matches()) {
+            if (!PATTERN.matcher(email).matches()) {
                 LOGGER.error(Const.SIA_LOG_PREFIX + "[邮箱：<" + email + ">不是宜信公司邮箱，请填写宜信公司邮箱]");
                 return false;
             }

@@ -5,7 +5,7 @@ import com.sia.rabbitmqplus.display.webapp.pojo.Record;
 import java.util.List;
 
 /**
- * Created by xinliang on 16/11/16.
+ * @author xinliang on 16/11/16.
  */
 public interface RecordMapper {
 

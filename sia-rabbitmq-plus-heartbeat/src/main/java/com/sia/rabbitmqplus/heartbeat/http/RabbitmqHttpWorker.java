@@ -32,7 +32,7 @@ package com.sia.rabbitmqplus.heartbeat.http;
 //import java.util.concurrent.locks.Lock;
 //
 ///**
-// * Created by xinliang on 16/11/11.
+// * @author xinliang on 16/11/11.
 // */
 //// @Component
 //public class RabbitmqHttpWorker {

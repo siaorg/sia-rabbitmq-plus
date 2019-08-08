@@ -16,13 +16,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Created by xinliang on 16/8/3.
+ * @author xinliang
+ * @date 16/8/3
  */
 public class ChannelPool {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ChannelPool.class);
 	private static LinkedBlockingQueue<Channel> channelQueue = null;
 	private static Connection connection = null;
+	private static final int CONNECTION_LIMIT_SIZE = 60;
 
 	private ChannelPool() {
 
@@ -85,7 +87,7 @@ public class ChannelPool {
 						throw new IllegalStateException("[未成功连接队列服务器]");
 					}
 				}
-				for (int i = 0; i < 60 && !connection.isOpen(); i++) {
+				for (int i = 0; i < CONNECTION_LIMIT_SIZE && !connection.isOpen(); i++) {
 					try {
 						Thread.sleep(1000);
 					} catch (InterruptedException e) {
@@ -110,8 +112,9 @@ public class ChannelPool {
 	public static void close(Channel channel) {
 		if (channelQueue == null || !channelQueue.offer(channel)) {
 			try {
-				if (channel.isOpen())
+				if (channel.isOpen()) {
 					channel.close();
+				}
 			} catch (IOException ex) {
 				LOGGER.error(Const.SIA_LOG_PREFIX, ex);
 			} catch (TimeoutException e) {
@@ -125,8 +128,9 @@ public class ChannelPool {
 	 */
 	public static void close() {
 		try {
-			if (connection.isOpen())
+			if (connection.isOpen()) {
 				connection.close();
+			}
 		} catch (IOException ex) {
 			LOGGER.error(Const.SIA_LOG_PREFIX, ex);
 		}
@@ -134,7 +138,6 @@ public class ChannelPool {
 	
 	/**
 	 * MQ多地址连接
-	 * @param rabbitHost
 	 * @return
 	 */
 	private static List<Address> getListAddress() {

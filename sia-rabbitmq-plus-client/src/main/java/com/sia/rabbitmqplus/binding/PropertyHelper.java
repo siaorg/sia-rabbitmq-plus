@@ -10,20 +10,24 @@ import java.util.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * @author lipengfei
+ */
 public class PropertyHelper {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(PropertyHelper.class);
 	private static String currentPath = null;
-
+	private static final String SKYTRAIN_FILE_PATH ="SKYTRAIN_FILE_PATH";
 	private PropertyHelper() {
 
 	}
 
 	private static String getAbsoluteFilePath(String file) {
-		if (getCurrentPath().endsWith(File.separator))
-			return getCurrentPath() + file;
-		else
-			return getCurrentPath() + File.separator + file;
+		if (getCurrentPath().endsWith(File.separator)) {
+            return getCurrentPath() + file;
+        } else {
+            return getCurrentPath() + File.separator + file;
+        }
 	}
 
 	protected static InputStream loadFile(String file) {
@@ -54,8 +58,8 @@ public class PropertyHelper {
 	protected static String getCurrentPath() {
 		if (currentPath != null) {
 			return currentPath;
-		} else if (System.getProperty("SKYTRAIN_FILE_PATH") != null) {
-			return System.getProperty("SKYTRAIN_FILE_PATH");
+		} else if (System.getProperty(SKYTRAIN_FILE_PATH) != null) {
+			return System.getProperty(SKYTRAIN_FILE_PATH);
 		} else {
 			File temp = new File("");
 			return temp.getAbsolutePath();
@@ -65,10 +69,12 @@ public class PropertyHelper {
 	protected static Properties load(String file) {
 
 		InputStream in = PropertyHelper.class.getClassLoader().getResourceAsStream(file);
-		if (in == null)
-			in = ClassLoader.getSystemResourceAsStream(file);
-		if (in == null)
-			in = PropertyHelper.loadFile(file);
+		if (in == null) {
+            in = ClassLoader.getSystemResourceAsStream(file);
+        }
+		if (in == null) {
+            in = PropertyHelper.loadFile(file);
+        }
 		if (in == null) {
 			LOGGER.error(Const.SIA_LOG_PREFIX + "[读取配置文件失败，请将<" + file + ">放置在[" + PropertyHelper.getCurrentPath()
 					+ "]路径下]");
