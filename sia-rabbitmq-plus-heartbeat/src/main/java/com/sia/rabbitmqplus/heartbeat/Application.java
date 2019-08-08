@@ -8,7 +8,8 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
- * Created by xinliang on 16/11/14.
+ * @author xinliang
+ * @date  16/11/14.
  */
 @SpringBootApplication
 @EnableScheduling

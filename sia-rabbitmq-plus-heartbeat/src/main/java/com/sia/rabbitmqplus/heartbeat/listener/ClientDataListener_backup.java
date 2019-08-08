@@ -19,7 +19,7 @@ package com.sia.rabbitmqplus.heartbeat.listener;
 //import java.util.concurrent.locks.Lock;
 //
 ///**
-// * Created by xinliang on 16/11/11.
+// * @author xinliang on 16/11/11.
 // */
 //@SpringBootApplication
 //public class ClientDataListener_backup implements CommandLineRunner {

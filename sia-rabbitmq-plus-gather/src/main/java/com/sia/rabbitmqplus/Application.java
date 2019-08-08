@@ -8,9 +8,9 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
 
 /**
- * Created by xinliang on 2017/10/26.
+ * @author xinliang
+ * 2017/10/26.
  */
-//@EnableScheduling
 @SpringBootApplication(scanBasePackages = { "com.sia", "com.sia.rabbitmqplus"})
 @EnableEurekaClient
 @EnableFeignClients

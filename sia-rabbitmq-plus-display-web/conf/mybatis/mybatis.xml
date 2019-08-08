@@ -5,7 +5,7 @@
 
     <!-- 实体类,简称 -设置别名 -->
     <typeAliases>
-        <typeAlias alias="Record" type="com.sia.rabbitmqplus.display.pojo.Record"/>
+        <typeAlias alias="Record" type="com.sia.rabbitmqplus.common.pojo.Record"/>
     </typeAliases>
     <!-- 实体接口映射资源 -->
     <!--

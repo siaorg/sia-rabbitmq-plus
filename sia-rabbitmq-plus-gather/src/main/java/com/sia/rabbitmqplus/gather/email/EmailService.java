@@ -4,7 +4,9 @@ import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
+/**
+ * @author lipengfei
+ */
 @FeignClient(name = "gantry-email-alarm")
 public interface EmailService {
 

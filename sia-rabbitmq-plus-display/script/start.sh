@@ -39,6 +39,6 @@ export PATH=$JAVA_HOME/bin:$JAVA_HOME/jre/bin:$PATH
 echo $(java -version)
 echo $(pwd)
 
-nohup java -server -Xms128m -Xmx256m -Xss256k -jar $(pwd)/lib/skytrain-display-1.0-SNAPSHOT.jar  1>/dev/null 2>&1 &
+nohup java -server -Xms128m -Xmx256m -Xss256k -jar $(pwd)/lib/sia-rabbitmq-plus-display-1.0-SNAPSHOT.jar  1>/dev/null 2>&1 &
 
 echo '======================ALL DONE=============================='

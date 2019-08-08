@@ -70,17 +70,11 @@
 
     <dependencies>
 
-        <!-- <dependency>
-            <groupId>com.creditease.skytrain</groupId>
-            <artifactId>skytrain-basic</artifactId>
+        <dependency>
+            <groupId>com.sia</groupId>
+            <artifactId>sia-rabbitmq-plus-common</artifactId>
             <version>1.0-SNAPSHOT</version>
-        </dependency> -->
-
-       <!--  <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-zipkin</artifactId>
-            <version>RELEASE</version>
-        </dependency> -->
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -145,12 +139,6 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
-        <!--<dependency>-->
-        <!--<groupId>org.springframework.cloud</groupId>-->
-        <!--<artifactId>spring-cloud-starter-zipkin</artifactId>-->
-        <!--<version>RELEASE</version>-->
-        <!--</dependency>-->
-
         <dependency>
             <groupId>taglibs</groupId>
             <artifactId>standard</artifactId>
@@ -162,12 +150,6 @@
             <artifactId>jstl</artifactId>
             <version>1.2</version>
         </dependency>
-
-        <!--<dependency>-->
-        <!--<groupId>com.alibaba</groupId>-->
-        <!--<artifactId>fastjson</artifactId>-->
-        <!--<version>1.2.19</version>-->
-        <!--</dependency>-->
 
         <dependency>
             <groupId>org.codehaus.jackson</groupId>
@@ -200,59 +182,9 @@
             <version>5.1.40</version>
         </dependency>
 
-        <dependency>
-            <groupId>net.logstash.logback</groupId>
-            <artifactId>logstash-logback-encoder</artifactId>
-            <version>4.9</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.zookeeper</groupId>
-            <artifactId>zookeeper</artifactId>
-            <version>3.4.6</version>
-        </dependency>
-
     </dependencies>
 
-    <distributionManagement>
-        <repository>
-            <id>nexus-releases</id>
-            <name>MyCo Internal Repository - releases</name>
-            <url>http://10.100.31.71:8080/nexus/content/repositories/releases/</url>
-        </repository>
-        <snapshotRepository>
-            <id>nexus-snapshots</id>
-            <name>MyCo Internal Repository - snapshots</name>
-            <url>http://10.100.31.71:8080/nexus/content/repositories/snapshots/</url>
-        </snapshotRepository>
-    </distributionManagement>
 
-    <profiles>
-        <profile>
-            <!-- 测试环境 -->
-            <id>test</id>
-            <properties>
-                <spring.cloud.config.profile>test</spring.cloud.config.profile>
-                <spring.cloud.config.label>master</spring.cloud.config.label>
-                <spring.cloud.config.uri>http://10.143.128.215:17005</spring.cloud.config.uri>
-            </properties>
-           <!--  <activation>
-				<activeByDefault>true</activeByDefault>
-			</activation> -->
-        </profile>
-        <profile>
-            <!-- 生产环境 -->
-            <id>pro</id>
-            <properties>
-                <spring.cloud.config.profile>pro</spring.cloud.config.profile>
-                <spring.cloud.config.label>master</spring.cloud.config.label>
-                <spring.cloud.config.uri>http://10.120.64.57:17005</spring.cloud.config.uri>
-            </properties>
-             <activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-        </profile>
-    </profiles>
 
     <build>
         <resources>

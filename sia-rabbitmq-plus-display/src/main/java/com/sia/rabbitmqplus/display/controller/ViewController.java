@@ -1,7 +1,7 @@
 package com.sia.rabbitmqplus.display.controller;
 
-import com.sia.rabbitmqplus.display.pojo.QueueInfo;
-import com.sia.rabbitmqplus.display.pojo.Record;
+import com.sia.rabbitmqplus.common.pojo.QueueInfo;
+import com.sia.rabbitmqplus.common.pojo.Record;
 import com.sia.rabbitmqplus.display.services.RecordService;
 import com.sia.rabbitmqplus.display.services.ViewService;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Created by xinliang on 16/11/16.
+ * @author xinliang on 16/11/16.
  */
 @Controller
 public class ViewController {
@@ -26,6 +26,10 @@ public class ViewController {
 
     @Autowired
     private ViewService viewService;
+
+    private final static int START_TIME_LENGTH_TEN = 10;
+    private final static int START_TIME_LENGTH_THIRTEEN = 13;
+
 
     @RequestMapping(value = "/queues", produces = "application/json;charset=UTF-8")
     @ResponseBody
@@ -70,12 +74,12 @@ public class ViewController {
         record.setQueueName(queueName);
 
         List<Record> records = null;
-        if (startTime.trim().length() == 10 && endTime.trim().length() == 10) {
+        if (startTime.trim().length() == START_TIME_LENGTH_TEN && endTime.trim().length() == START_TIME_LENGTH_TEN) {
             record.setStartTime(startTime + " 00:00:00");
             record.setEndTime(endTime + " 23:59:59");
             records = recordService.findAsDay(record);
         }
-        else if (startTime.trim().length() == 13 && endTime.trim().length() == 13) {
+        else if (startTime.trim().length() == START_TIME_LENGTH_THIRTEEN && endTime.trim().length() == START_TIME_LENGTH_THIRTEEN) {
             record.setStartTime(startTime + ":00:00");
             record.setEndTime(endTime + ":59:59");
             records = recordService.findAsHour(record);

@@ -15,7 +15,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * Created by xinliang on 16/11/16.
+ * @author xinliang on 16/11/16.
  */
 @Controller
 public class ViewController {

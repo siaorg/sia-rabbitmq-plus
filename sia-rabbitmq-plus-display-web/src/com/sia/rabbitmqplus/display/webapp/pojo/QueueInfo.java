@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 /**
- * Created by xinliang on 16/11/10.
+ * @author xinliang on 16/11/10.
  */
 public class QueueInfo implements java.io.Serializable {
 

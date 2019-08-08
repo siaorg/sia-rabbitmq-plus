@@ -52,10 +52,12 @@ public class RateLimiter {
     public RateLimiter(TimeUnit averageRateUnit) {
 
         switch (averageRateUnit) {
-            case SECONDS: // 秒级
+            // 秒级
+            case SECONDS:
                 rateToMsConversion = 1000;
                 break;
-            case MINUTES: // 分钟级
+            // 分钟级
+            case MINUTES:
                 rateToMsConversion = 60 * 1000;
                 break;
             default:
@@ -78,8 +80,8 @@ public class RateLimiter {
     }
 
     public boolean acquire(int burstSize, long averageRate, long currentTimeMillis) {
-
-        if (burstSize <= 0 || averageRate <= 0) { // Instead of throwing exception, we just let all the traffic go
+        // Instead of throwing exception, we just let all the traffic go
+        if (burstSize <= 0 || averageRate <= 0) {
             return true;
         }
 
@@ -104,10 +106,12 @@ public class RateLimiter {
                     : refillTime + newTokens * rateToMsConversion / averageRate;
             // CAS 保证有且仅有一个线程进入填充
             if (lastRefillTime.compareAndSet(refillTime, newRefillTime)) {
-                while (true) { // 死循环，直到成功
+                // 死循环，直到成功
+                while (true) {
                     // 计算 填充令牌后的已消耗令牌数量
                     int currentLevel = consumedTokens.get();
-                    int adjustedLevel = Math.min(currentLevel, burstSize); // In case burstSize decreased
+                    // In case burstSize decreased
+                    int adjustedLevel = Math.min(currentLevel, burstSize);
                     int newLevel = (int) Math.max(0, adjustedLevel - newTokens);
                     // CAS 避免和正在消费令牌的线程冲突
                     if (consumedTokens.compareAndSet(currentLevel, newLevel)) {
@@ -119,8 +123,8 @@ public class RateLimiter {
     }
 
     private boolean consumeToken(int burstSize) {
-
-        while (true) { // 死循环，直到没有令牌，或者获取令牌成功
+        // 死循环，直到没有令牌，或者获取令牌成功
+        while (true) {
             // 没有令牌
             int currentLevel = consumedTokens.get();
 

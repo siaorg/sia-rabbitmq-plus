@@ -10,10 +10,8 @@ import java.util.*;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-//import com.creditease.skytrain.control.ConsumerBarrier;
-
 /**
- * Created by xinliang on 16/8/10.
+ * @author xinliang on 16/8/10.
  */
 public class Consumer {
 
@@ -22,7 +20,7 @@ public class Consumer {
 	}
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(Consumer.class);
-	private static final AtomicBoolean started = new AtomicBoolean(false);
+	private static final AtomicBoolean STARTED = new AtomicBoolean(false);
 	private static ApplicationContext appContext = null;
 	private static final String RECEIVE_QUEUE_FILE = "receivequeue.properties";
 	private static final int MAX_QUEUE_NUM = getMaxQueueNum();
@@ -40,8 +38,8 @@ public class Consumer {
 		}
 		LOGGER.info(Const.SIA_LOG_PREFIX + "[======<" + RECEIVE_QUEUE_FILE + ">内容结束======]");
 		Enumeration<?> en = pro.propertyNames();
-		List<String> PASS = new ArrayList<String>();
-		List<String> FAIL = new ArrayList<String>();
+		List<String> pass = new ArrayList<String>();
+		List<String> fail = new ArrayList<String>();
 		while (en.hasMoreElements()) {
 			String exchangeAndQueueName = (String) en.nextElement();
 			String jsonStr = pro.getProperty(exchangeAndQueueName);
@@ -52,7 +50,7 @@ public class Consumer {
 				LOGGER.info(Const.SIA_LOG_PREFIX + "[队列名：<" + queueName + "> 检查通过]");
 				if (!checkParameter(jsonObject)) {
 					LOGGER.error(Const.SIA_LOG_PREFIX + "[队列名为：<" + queueName + "> 的相关配置出错，不予启动！该队列不影响其他队列的启动]");
-					FAIL.add(queueName);
+					fail.add(queueName);
 					continue;
 				}
 				if (checkQueueNum()) {
@@ -101,25 +99,25 @@ public class Consumer {
 						LOGGER.error(Const.SIA_LOG_PREFIX + "[不可能打印这条信息啊，请务必联系项目组<sia.list@creditease.cn>]");
 					}
 					service.execute(consumer);
-					PASS.add(queueName);
+					pass.add(queueName);
 				} else {
 					LOGGER.error(Const.SIA_LOG_PREFIX + "[<" + queueName + " 超过最大启动队列数限制:<" + MAX_QUEUE_NUM
 							+ ">，不予启动！如有必要，请联系项目组<sia.list@creditease.cn>]");
-					FAIL.add(queueName);
+					fail.add(queueName);
 				}
 			} else {
 				LOGGER.error(Const.SIA_LOG_PREFIX + "[<" + queueName + ">名称不符合项目规则,应该以项目名称为前缀]");
-				FAIL.add(queueName);
+				fail.add(queueName);
 			}
 		}
 		LOGGER.info(Const.SIA_LOG_PREFIX + "[======队列启动情况======]");
-		LOGGER.info(Const.SIA_LOG_PREFIX + "[启动成功的队列个数]->" + PASS.size());
-		for (int i = 0; i < PASS.size(); i++) {
-			LOGGER.info(Const.SIA_LOG_PREFIX + "[启动成功]->" + PASS.get(i));
+		LOGGER.info(Const.SIA_LOG_PREFIX + "[启动成功的队列个数]->" + pass.size());
+		for (int i = 0; i < pass.size(); i++) {
+			LOGGER.info(Const.SIA_LOG_PREFIX + "[启动成功]->" + pass.get(i));
 		}
-		LOGGER.info(Const.SIA_LOG_PREFIX + "[启动失败的队列个数]->" + FAIL.size());
-		for (int i = 0; i < FAIL.size(); i++) {
-			LOGGER.info(Const.SIA_LOG_PREFIX + "[启动失败]->" + FAIL.get(i));
+		LOGGER.info(Const.SIA_LOG_PREFIX + "[启动失败的队列个数]->" + fail.size());
+		for (int i = 0; i < fail.size(); i++) {
+			LOGGER.info(Const.SIA_LOG_PREFIX + "[启动失败]->" + fail.get(i));
 		}
 		LOGGER.info(Const.SIA_LOG_PREFIX + "[======配置文件<" + RECEIVE_QUEUE_FILE + ">加载成功======]");
 	}
@@ -204,12 +202,12 @@ public class Consumer {
 	public static void start(ApplicationContext applicationContext) {
 		Initial.init();
 		Initial.await();
-		if (Initial.isReady() && started.compareAndSet(false, true)) {
+		if (Initial.isReady() && STARTED.compareAndSet(false, true)) {
 			Consumer.appContext = applicationContext;
 			init();
 		}
 
-		if (false == started.get()) {
+		if (false == STARTED.get()) {
 			LOGGER.error(Const.SIA_LOG_PREFIX + "[未成功连接队列服务器，接收端未启动]");
 			throw new IllegalStateException("[未成功连接队列服务器，接收端未启动]");
 		}
@@ -222,11 +220,11 @@ public class Consumer {
 	public static void start() {
 		Initial.init();
 		Initial.await();
-		if (Initial.isReady() && started.compareAndSet(false, true)) {
+		if (Initial.isReady() && STARTED.compareAndSet(false, true)) {
 			init();
 		}
 
-		if (false == started.get()) {
+		if (false == STARTED.get()) {
 			LOGGER.error(Const.SIA_LOG_PREFIX + "[未成功连接队列服务器，接收端未启动]");
 			throw new IllegalStateException("[未成功连接队列服务器，接收端未启动]");
 		}

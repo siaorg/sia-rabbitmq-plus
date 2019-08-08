@@ -1,5 +1,6 @@
 package com.sia.rabbitmqplus.log;
 
+import com.sia.rabbitmqplus.binding.FileSize;
 import org.apache.log4j.Appender;
 import org.apache.log4j.DailyRollingFileAppender;
 import org.apache.log4j.Layout;
@@ -16,7 +17,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * Created by xinliang on 16/8/11.
+ * @author xinliang on 16/8/11.
  */
 public class SkyTrainLogger {
 
@@ -26,34 +27,35 @@ public class SkyTrainLogger {
 
 	private static final Logger LOGGER_SELF = LoggerFactory.getLogger(SkyTrainLogger.class);
 
-	private static final Map<String, org.apache.log4j.Logger> loggerFileMap = new ConcurrentHashMap<String, org.apache.log4j.Logger>();
+	private static final Map<String, org.apache.log4j.Logger> LOGGER_FILE_MAP = new ConcurrentHashMap<String, org.apache.log4j.Logger>();
+
 
 	/**
 	 * @param exchangeOrQueueName
 	 * @return
 	 */
 	private synchronized static org.apache.log4j.Logger getLoggerFile(String exchangeOrQueueName) {
-		if (!loggerFileMap.containsKey(exchangeOrQueueName)) {
-			org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(exchangeOrQueueName);
+		if (!LOGGER_FILE_MAP.containsKey(exchangeOrQueueName)) {
+			org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(exchangeOrQueueName);
 			Layout layout = new PatternLayout("%d %p [%c] - %m%n");
 			Appender appender = null;
 			try {
-				if (System.getProperty("SKYTRAIN_DAILY_LOG") != null) {
+				if (System.getProperty(Const.SKYTRAIN_DAILY_LOG) != null) {
 					appender = new DailyRollingFileAppender(layout,
 							Const.SKYTRAIN_LOG_ROOT + exchangeOrQueueName + ".log", "'.'yyyy-MM-dd");
 				} else {
 					appender = new RollingFileAppender(layout, Const.SKYTRAIN_LOG_ROOT + exchangeOrQueueName + ".log");
 					((RollingFileAppender) appender)
-							.setMaximumFileSize(toFileSize(Const.SKYTRAIN_LOG_FILESIZE, maxFileSize));
+							.setMaximumFileSize(toFileSize(Const.SKYTRAIN_LOG_FILESIZE, MAX_FILE_SIZE));
 					((RollingFileAppender) appender).setMaxBackupIndex(Const.SKYTRAIN_LOG_FILENUMS);
 				}
 			} catch (IOException ex) {
 				LOGGER_SELF.error(Const.SIA_LOG_PREFIX, ex);
 			}
-			LOGGER.addAppender(appender);
-			loggerFileMap.put(exchangeOrQueueName, LOGGER);
+			logger.addAppender(appender);
+			LOGGER_FILE_MAP.put(exchangeOrQueueName, logger);
 		}
-		return loggerFileMap.get(exchangeOrQueueName);
+		return LOGGER_FILE_MAP.get(exchangeOrQueueName);
 	}
 
 	/**
@@ -64,7 +66,7 @@ public class SkyTrainLogger {
 		getLoggerFile(exchangeOrQueueName).info(message);
 	}
 
-	private final static long maxFileSize = 10 * 1024 * 1024;
+	private final static long MAX_FILE_SIZE = 10 * 1024 * 1024;
 
 	private static long toFileSize(String value, long dEfault) {
 		if (value == null) {
@@ -75,13 +77,13 @@ public class SkyTrainLogger {
 		long multiplier = 1;
 		int index;
 
-		if ((index = s.indexOf("KB")) != -1) {
+		if ((index = s.indexOf(FileSize.KB)) != -1) {
 			multiplier = 1024;
 			s = s.substring(0, index);
-		} else if ((index = s.indexOf("MB")) != -1) {
+		} else if ((index = s.indexOf(FileSize.MB)) != -1) {
 			multiplier = 1024 * 1024;
 			s = s.substring(0, index);
-		} else if ((index = s.indexOf("GB")) != -1) {
+		} else if ((index = s.indexOf(FileSize.GB)) != -1) {
 			multiplier = 1024 * 1024 * 1024;
 			s = s.substring(0, index);
 		}

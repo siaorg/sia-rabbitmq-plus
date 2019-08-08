@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 /**
- * Created by xinliang on 2017/9/10.
+ *  @author xinliang
+ *  @date 2017/9/10
  */
 @SpringBootApplication
 @EnableEurekaClient
-//@SkytrainApplicationClient
 @Controller
 @ComponentScan("com.sia")
 public class Application {

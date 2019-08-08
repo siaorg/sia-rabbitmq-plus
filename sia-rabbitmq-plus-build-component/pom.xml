@@ -15,6 +15,7 @@
         <module>../sia-rabbitmq-plus-display-web</module>
         <module>../sia-rabbitmq-plus-gather</module>
         <module>../sia-rabbitmq-plus-heartbeat</module>
+        <module>../sia-rabbitmq-plus-common</module>
     </modules>
 
     <build>
@@ -55,6 +56,8 @@
                                 <echo>Building sia rabbitmq plus START....</echo>
                                 <delete dir="target/build"/>
                                 <mkdir dir="target/build"/>
+                                <mkdir dir="config"/>
+                                <mkdir dir="bin"/>
                                 <mkdir dir="target/build/logs"/>
                                 <mkdir dir="target/build/bin"/>
                                 <mkdir dir="target/build/thirdparty"/>
@@ -73,6 +76,10 @@
 
                                 <copy todir="target/build/bin">
                                     <fileset file="../sia-rabbitmq-plus-heartbeat/target/sia-rabbitmq-plus-heartbeat-1.0-SNAPSHOT.jar"></fileset>
+                                </copy>
+
+                                <copy todir="target/build/bin">
+                                    <fileset file="../sia-rabbitmq-plus-common/target/sia-rabbitmq-plus-common-1.0-SNAPSHOT.jar"></fileset>
                                 </copy>
 
                                 <copy todir="target/build/config">

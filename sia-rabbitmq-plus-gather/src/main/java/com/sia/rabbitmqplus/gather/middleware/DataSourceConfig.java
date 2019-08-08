@@ -10,7 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import javax.sql.DataSource;
 
 /**
- * Created by xinliang on 2017/9/8.
+ * @author xinliang on 2017/9/8.
  */
 @Configuration
 public class DataSourceConfig {

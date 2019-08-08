@@ -1,9 +1,9 @@
 package com.sia.rabbitmqplus.gather;
 
+import com.sia.rabbitmqplus.common.helpers.JSONHelper;
+import com.sia.rabbitmqplus.common.pojo.QueueInfo;
 import com.sia.rabbitmqplus.gather.database.DataBaseHandler;
 import com.sia.rabbitmqplus.gather.email.EmailWorker;
-import com.sia.rabbitmqplus.gather.pojo.QueueInfo;
-import com.sia.rabbitmqplus.helpers.JSONHelper;
 import feign.FeignException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
 import static org.apache.commons.codec.binary.Base64.encodeBase64;
 
 /**
- * Created by xinliang on 2017/10/26.
+ * @author xinliang on 2017/10/26.
  */
 @RestController
 public class TaskHandler {
@@ -50,7 +50,9 @@ public class TaskHandler {
     @Qualifier("redisTemplate")
     public StringRedisTemplate redisTemplate;
 
-    // 定时模块。表示从10s开始，每隔1分钟执行一次
+    /**
+     * 定时模块表示从10s开始，每隔1分钟执行一次
+     */
     @Scheduled(initialDelay = 10000L, fixedRate = 60000L)
     @RequestMapping(value = "/statistics", method = { RequestMethod.POST }, produces = "application/json;charset=UTF-8")
     @CrossOrigin(methods = { RequestMethod.POST }, origins = "*")
@@ -104,19 +106,6 @@ public class TaskHandler {
                     tmpQueues++;
                     continue;
                 }
-
-                // TODO:过滤一些自动删除的队列，标识为AD，关键属性为durable，auto_delete
-                // boolean durable = (Boolean) queue.get("durable");
-                // if (!durable) {
-                // tmpQueues++;
-                // continue;
-                // }
-                // boolean auto_delete = (Boolean) queue.get("auto_delete");
-                // if (auto_delete) {
-                // tmpQueues++;
-                // continue;
-                // }
-                // end，这段代码主要是过滤SpringCloudBus建立的owner的AD队列
                 queueName = (String) queue.get("name");
                 if (queueName.startsWith("amq.gen")) {
                     continue;
@@ -137,7 +126,6 @@ public class TaskHandler {
                     deliver = Long.valueOf(deliverTemp == null ? new Long(0) : deliverTemp);
                 }
                 // query from redis and transfer pojo
-
                 try {
 
                     String queueInfoObject = redisTemplate.opsForValue().get(queueName);
@@ -223,7 +211,9 @@ public class TaskHandler {
         return JSONHelper.toString(information);
     }
 
-    // 注入服务提供者,远程的Http服务
+    /**
+     * 注入服务提供者,远程的Http服务
+     */
     @Autowired
     private TaskService taskService;
 
@@ -243,7 +233,7 @@ public class TaskHandler {
 
     private static final long SEVEN_DAYS = 7 * 24 * 60 * 60 * 1000L;
 
-    //@OnlineTask(description = "定时清理历史数据", enableSerial = true)
+    @Scheduled(initialDelay = 10000L, fixedRate = 60000L)
     @RequestMapping(value = "/clean", method = { RequestMethod.POST }, produces = "application/json;charset=UTF-8")
     @CrossOrigin(methods = { RequestMethod.POST }, origins = "*")
     @ResponseBody

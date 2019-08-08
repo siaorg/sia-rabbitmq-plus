@@ -1,4 +1,4 @@
 #!/bin/sh
-echo ==========try to stop skytrain-display================= 
-kill -9 $(ps -ef | grep 'skytrain-display' |  grep -v "grep" | awk '{print $2}')
-echo ==========stop skytrain-display OK=====================
+echo ==========try to stop sia-rabbitmq-plus-display=================
+kill -9 $(ps -ef | grep 'sia-rabbitmq-plus-display' |  grep -v "grep" | awk '{print $2}')
+echo ==========stop sia-rabbitmq-plus-display OK=====================

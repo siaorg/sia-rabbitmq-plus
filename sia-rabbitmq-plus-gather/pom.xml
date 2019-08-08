@@ -24,6 +24,12 @@
 		<dependencies>
 
 			<dependency>
+				<groupId>com.sia</groupId>
+				<artifactId>sia-rabbitmq-plus-common</artifactId>
+				<version>1.0-SNAPSHOT</version>
+			</dependency>
+
+			<dependency>
 				<!-- Import dependency management from Spring Boot -->
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-parent</artifactId>
@@ -107,53 +113,14 @@
 			<artifactId>commons-codec</artifactId>
 			<version>1.10</version>
 		</dependency>
+        <dependency>
+            <groupId>com.sia</groupId>
+            <artifactId>sia-rabbitmq-plus-common</artifactId>
+        </dependency>
 
-	</dependencies>
-
-	<repositories>
-		<repository>
-			<id>spring-releases</id>
-			<name>Spring Releases</name>
-			<url>https://repo.spring.io/libs-release</url>
-		</repository>
-	</repositories>
-
-	<pluginRepositories>
-		<pluginRepository>
-			<id>spring-releases</id>
-			<name>Spring Releases</name>
-			<url>https://repo.spring.io/libs-release</url>
-		</pluginRepository>
-	</pluginRepositories>
+    </dependencies>
 
 
-	<!--&lt;!&ndash; 配合 bootstrap.yml 使用配置中心，如不需要，可以不加 &ndash;&gt;-->
-	<profiles>
-		<profile>
-			<!-- 测试环境 -->
-			<id>test</id>
-			<properties>
-				<spring.cloud.config.profile>test</spring.cloud.config.profile>
-				<spring.cloud.config.label>master</spring.cloud.config.label>
-				<spring.cloud.config.uri>http://10.143.131.12:19001</spring.cloud.config.uri>
-			</properties>
-			<!-- 指定生效的profile -->
-			<!-- <activation> <activeByDefault>true</activeByDefault> </activation> -->
-
-		</profile>
-		<profile>
-			<!-- 生产环境 -->
-			<id>pro</id>
-			<properties>
-				<spring.cloud.config.profile>pro</spring.cloud.config.profile>
-				<spring.cloud.config.label>master</spring.cloud.config.label>
-				<spring.cloud.config.uri>http://gantry.config.jishu.idc</spring.cloud.config.uri>
-			</properties>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-		</profile>
-	</profiles>
 
 	<build>
 		<resources>

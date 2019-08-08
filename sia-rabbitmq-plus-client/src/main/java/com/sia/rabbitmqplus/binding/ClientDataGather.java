@@ -13,46 +13,44 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 /**
- * Created by xinliang on 16/11/11.
+ * @author xinliang
+ * @date 16/11/11.
  */
 public class ClientDataGather {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ClientDataGather.class);
-	private static final String date_format = "yyyy-MM-dd HH:mm:ss";
-	private static final ThreadLocal<DateFormat> threadLocal = new ThreadLocal<DateFormat>() {
+	private static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+	private static final ThreadLocal<DateFormat> THREAD_LOCAL = new ThreadLocal<DateFormat>() {
 		@Override
 		protected DateFormat initialValue() {
-			return new SimpleDateFormat(date_format);
+			return new SimpleDateFormat(DATE_FORMAT);
 		}
 	};
 
 	public static Date parse(String dateStr) throws ParseException {
-		return threadLocal.get().parse(dateStr);
+		return THREAD_LOCAL.get().parse(dateStr);
 	}
 
 	public static String format(Date date) {
-		return threadLocal.get().format(date);
+		return THREAD_LOCAL.get().format(date);
 	}
 
-	private static final Map<String, Date> publishQueue = new ConcurrentHashMap<String, Date>();
-	private static final Map<String, Date> deliverQueue = new ConcurrentHashMap<String, Date>();
+	private static final Map<String, Date> PUBLISH_QUEUE = new ConcurrentHashMap<String, Date>();
+	private static final Map<String, Date> DELIVER_QUEUE = new ConcurrentHashMap<String, Date>();
 
 	public static void addPublishDate(String queueName) {
-		publishQueue.put(queueName, new Date());
+		PUBLISH_QUEUE.put(queueName, new Date());
 	}
 
 	public static void addDeliverDate(String queueName) {
-		deliverQueue.put(queueName, new Date());
+		DELIVER_QUEUE.put(queueName, new Date());
 	}
 
-	private static final Map<String, Map<String, Integer>> deliverQueueObject = new ConcurrentHashMap<String, Map<String, Integer>>();
-	private static final String clientListenQueue = "SKYTRAIN_CLIENT_LISTEN_QUEUE";
+	private static final Map<String, Map<String, Integer>> DELIVER_QUEUE_OBJECT = new ConcurrentHashMap<String, Map<String, Integer>>();
+	private static final String CLIENT_LISTEN_QUEUE = "SKYTRAIN_CLIENT_LISTEN_QUEUE";
 	private static final String RECEIVE_QUEUE_FILE = "receivequeue.properties";
 
 	private ClientDataGather() {
@@ -62,6 +60,7 @@ public class ClientDataGather {
 	/**
 	 * startClientDataGather
 	 */
+	@SuppressWarnings("AlibabaThreadPoolCreation")
 	public static void startClientDataGather() {
 		ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
 		executor.scheduleWithFixedDelay(new Runnable() {
@@ -86,17 +85,17 @@ public class ClientDataGather {
 
 	private static void sendPublishInfo() {
 		Channel channel = ChannelPool.open();
-		for (String queuename : publishQueue.keySet()) {
+		for (String queuename : PUBLISH_QUEUE.keySet()) {
 			try {
 				Queue queue = new Queue();
 				queue.setQueueName(queuename);
 				queue.setType("publish");
 				queue.setPublishIp(Initial.localIpAddress);
-				queue.setPublishRecentTime(format(publishQueue.get(queuename)));
+				queue.setPublishRecentTime(format(PUBLISH_QUEUE.get(queuename)));
 				queue.setEmailReceviers(Initial.emailReceviers);
 				String message = String.valueOf(JSONSerializer.toJSON(queue));
-				channel.queueDeclare(clientListenQueue, true, false, false, null);
-				channel.basicPublish("", clientListenQueue, MessageProperties.PERSISTENT_TEXT_PLAIN,
+				channel.queueDeclare(CLIENT_LISTEN_QUEUE, true, false, false, null);
+				channel.basicPublish("", CLIENT_LISTEN_QUEUE, MessageProperties.PERSISTENT_TEXT_PLAIN,
 						message.getBytes("UTF-8"));
 			} catch (IOException ex) {
 				LOGGER.error(Const.SIA_LOG_PREFIX, ex);
@@ -114,26 +113,26 @@ public class ClientDataGather {
 
 	private static void sendDeliverInfo() {
 		Channel channel = ChannelPool.open();
-		for (String queuename : deliverQueue.keySet()) {
+		for (String queuename : DELIVER_QUEUE.keySet()) {
 			try {
 				Queue queue = new Queue();
 				queue.setQueueName(queuename);
 				queue.setType("deliver");
 				queue.setDeliverIp(Initial.localIpAddress);
-				queue.setDeliverRecentTime(format(deliverQueue.get(queuename)));
+				queue.setDeliverRecentTime(format(DELIVER_QUEUE.get(queuename)));
 				queue.setProjectName(Initial.projectName);
 				queue.setProjectDescription(Initial.projectDescription);
 				queue.setEmailReceviers(Initial.emailReceviers);
 				setAlarmParameters();
-				if (deliverQueueObject.containsKey(queuename)) {
+				if (DELIVER_QUEUE_OBJECT.containsKey(queuename)) {
 					queue.setUnConsumeMessageAlarmNum(
-							deliverQueueObject.get(queuename).get("unConsumeMessageAlarmNum"));
+							DELIVER_QUEUE_OBJECT.get(queuename).get("unConsumeMessageAlarmNum"));
 					queue.setUnConsumeMessageAlarmGrowthTimes(
-							deliverQueueObject.get(queuename).get("unConsumeMessageAlarmGrowthTimes"));
+							DELIVER_QUEUE_OBJECT.get(queuename).get("unConsumeMessageAlarmGrowthTimes"));
 				}
 				String message = String.valueOf(JSONSerializer.toJSON(queue));
-				channel.queueDeclare(clientListenQueue, true, false, false, null);
-				channel.basicPublish("", clientListenQueue, MessageProperties.PERSISTENT_TEXT_PLAIN,
+				channel.queueDeclare(CLIENT_LISTEN_QUEUE, true, false, false, null);
+				channel.basicPublish("", CLIENT_LISTEN_QUEUE, MessageProperties.PERSISTENT_TEXT_PLAIN,
 						message.getBytes("UTF-8"));
 			} catch (IOException ex) {
 				LOGGER.error(Const.SIA_LOG_PREFIX, ex);
@@ -162,19 +161,19 @@ public class ClientDataGather {
 			String jsonStr = pro.getProperty(exchangeAndQueueName);
 			JSONObject jsonObject = JSONObject.fromObject(jsonStr);
 
-			Map<String, Integer> queueInfoMap = new HashMap<String, Integer>();
+			Map<String, Integer> queueInfoMap = new HashMap<String, Integer>(2);
 			if (jsonObject.containsKey("unConsumeMessageAlarmNum")) {
 				queueInfoMap.put("unConsumeMessageAlarmNum", jsonObject.getInt("unConsumeMessageAlarmNum"));
 			} else {
 				queueInfoMap.put("unConsumeMessageAlarmNum", 100);
 			}
-			if (jsonObject.containsKey("unConsumeMessageAlarmGrowthTimes")) {
+			if (jsonObject.containsKey("unConsum eMessageAlarmGrowthTimes")) {
 				queueInfoMap.put("unConsumeMessageAlarmGrowthTimes",
-						jsonObject.getInt("unConsumeMessageAlarmGrowthTimes"));
+						jsonObject.getInt("unConsumeMessa  geAlarmGrowthTimes"));
 			} else {
 				queueInfoMap.put("unConsumeMessageAlarmGrowthTimes", 5);
 			}
-			ClientDataGather.deliverQueueObject.put(queueName, queueInfoMap);
+			ClientDataGather.DELIVER_QUEUE_OBJECT.put(queueName, queueInfoMap);
 		}
 	}
 

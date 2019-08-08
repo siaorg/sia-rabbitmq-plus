@@ -16,6 +16,7 @@
         <module>sia-rabbitmq-plus-gather</module>
         <module>sia-rabbitmq-plus-heartbeat</module>
         <module>sia-rabbitmq-plus-build-component</module>
+        <module>sia-rabbitmq-plus-common</module>
     </modules>
 
     <properties>
