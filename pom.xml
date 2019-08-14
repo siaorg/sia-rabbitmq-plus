@@ -12,7 +12,6 @@
     <modules>
         <module>sia-rabbitmq-plus-client</module>
         <module>sia-rabbitmq-plus-display</module>
-        <module>sia-rabbitmq-plus-display-web</module>
         <module>sia-rabbitmq-plus-gather</module>
         <module>sia-rabbitmq-plus-heartbeat</module>
         <module>sia-rabbitmq-plus-build-component</module>

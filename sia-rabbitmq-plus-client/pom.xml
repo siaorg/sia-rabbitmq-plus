@@ -187,15 +187,4 @@
 		</profile>
 	</profiles>
 
-	<distributionManagement>
-		<repository>
-			<id>nexus-releases</id>
-			<url>http://nexus.creditease.corp/nexus/content/repositories/releases/</url>
-		</repository>
-		<snapshotRepository>
-			<id>nexus-snapshots</id>
-			<url>http://nexus.creditease.corp/nexus/content/repositories/snapshots/</url>
-			<uniqueVersion>true</uniqueVersion>
-		</snapshotRepository>
-	</distributionManagement>
 </project>

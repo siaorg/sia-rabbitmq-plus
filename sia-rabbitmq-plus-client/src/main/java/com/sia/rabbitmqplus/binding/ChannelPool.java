@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Properties;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeoutException;
 
@@ -33,12 +34,12 @@ public class ChannelPool {
 	/**
 	 * init
 	 */
-	protected static boolean init() {
+	protected static boolean init(Properties prop) {
 		ConnectionFactory factory = new ConnectionFactory();
-		factory.setHost(Const.RABBIT_HOST);
-		factory.setPort(Const.RABBIT_PORT);
-		factory.setUsername(Const.RABBITMQ_USERNAME);
-		factory.setPassword(Const.RABBITMQ_PASSWORD);
+		factory.setHost(prop.getProperty("RABBITMQ_HOST").trim());
+		factory.setPort(Integer.parseInt(prop.getProperty("RABBIT_PORT").trim()));
+		factory.setUsername(prop.getProperty("RABBITMQ_USERNAME"));
+		factory.setPassword(prop.getProperty("RABBITMQ_PASSWORD"));
 		factory.setAutomaticRecoveryEnabled(true);
 		factory.setHandshakeTimeout(60 * 1000);
 		LOGGER.info(Const.SIA_LOG_PREFIX + "[RABBIT_HOST:<" + Const.RABBIT_HOST + ">]");

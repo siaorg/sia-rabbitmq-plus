@@ -97,9 +97,7 @@ public class Initial {
                 setLogSize(fileSize);
                 setLogNum(fileNums);
 
-                Const.RABBIT_HOST = serverIP.trim();
-                Const.RABBIT_PORT = Integer.parseInt(port.trim());
-                if (ChannelPool.init()) {
+                if (ChannelPool.init(prop)) {
                     LOGGER.info(Const.SIA_LOG_PREFIX + "[======配置文件<" + PARAMETER_FILE + ">加载成功======]");
                     ClientDataGather.startClientDataGather();
                     READY.compareAndSet(false, true);
