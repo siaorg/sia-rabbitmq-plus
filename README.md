@@ -45,7 +45,7 @@ C#、JavaScript 等。
 * 插件机制: RabbitMQ提供了许多插件，以实现从多方面进行扩展，当然也可以编写自
 己的插件。
 
-#Sia-rabbitmq-plus特性
+# Sia-rabbitmq-plus特性
 
 + **高可用性**：  
 
