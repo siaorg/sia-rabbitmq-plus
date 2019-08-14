@@ -167,9 +167,9 @@ public class ClientDataGather {
 			} else {
 				queueInfoMap.put("unConsumeMessageAlarmNum", 100);
 			}
-			if (jsonObject.containsKey("unConsum eMessageAlarmGrowthTimes")) {
+			if (jsonObject.containsKey("unConsumeMessageAlarmGrowthTimes")) {
 				queueInfoMap.put("unConsumeMessageAlarmGrowthTimes",
-						jsonObject.getInt("unConsumeMessa  geAlarmGrowthTimes"));
+						jsonObject.getInt("unConsumeMessageAlarmGrowthTimes"));
 			} else {
 				queueInfoMap.put("unConsumeMessageAlarmGrowthTimes", 5);
 			}

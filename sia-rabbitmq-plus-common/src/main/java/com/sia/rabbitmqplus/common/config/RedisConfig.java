@@ -18,7 +18,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * @author ifeng
+ * @author  pengfeili
  */
 @Configuration
 public class RedisConfig extends CachingConfigurerSupport {
