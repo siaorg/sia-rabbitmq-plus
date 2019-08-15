@@ -119,11 +119,14 @@ RabbitMQ队列服务集群化，支持动态增删集群节点。 增加镜像�
 * [微服务任务调度平台](https://github.com/siaorg/sia-task)
 * [微服务路由网关（zuul-plus)](https://github.com/siaorg/sia-gateway)
 
-#联系我们
+## 关于我们
 
 * 邮件交流：sia.list@creditease.cn
 
 * 提交issue:
 
-* 微信交流：     
-![](docs/pic/wechat.jpeg)
+* 微信交流：
+
+    <img src="docs/pic/newlog.jpeg" width="30%" height="30%">
+    
+（待补充）
