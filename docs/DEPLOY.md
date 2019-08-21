@@ -23,12 +23,12 @@ reids的安装和配置详见官方文档,单机或集群模式都行
 ## 三. rabbitMQ 安装
 rabbitMQ的安装和配置详见官方文档,单机或集群都行
 
-##项目部署
+## 项目部署
 
-1.环境要求 
-系统：64bit OS，Linux/Mac/Windows 
-IDE：推荐使用IntelliJ IDEA 或 Eclipse 
-JDK：JDK1.8+
+1.环境要求  
+* 系统：64bit OS，Linux/Mac/Windows 
+* IDE：推荐使用IntelliJ IDEA 或 Eclipse 
+* JDK：JDK1.8+
 
 
 
@@ -42,23 +42,21 @@ JDK：JDK1.8+
 
 * 打开安装包所在文件夹，将安装包解压，得到task目录，其中包括2个子目录bin和config。bin目录下是工程启动和停止脚本，config是配置文件用于配置mysql和rabbitmq的配置。
 目录如图所示：
-![](./pic/config.jpg)
-
-![](./pic/bin.jpg)
+    <img src="./pic/config.jpg" width="30%" height="30%"><br><br>
+    <img src="./pic/bin.jpg" width="30%" height="30%">
 
 
 3.配置文件修改
 
 将config文件夹下的display_application.yml、gather_application.yml、heartbeat_application.yml 这三个yml文件中的rabbitmq和mysql的链接修改为自己的地址、用户名和密码。
 
-4.启动sia-rabbitmq-plus-heartbeat工程
-
+4.启动sia-rabbitmq-plus-heartbeat工程           
 sh start-heartbeat.sh
 
-5.启动sia-rabbitmq-plus-gather工程
+5.启动sia-rabbitmq-plus-gather工程          
 sh start-gather.sh
 
-6.启动sia-rabbitmq-plus-display工程
+6.启动sia-rabbitmq-plus-display工程      
 sh start-display.sh
 
 默认的display_application.yml端口为17006，display工程启动后输入：[http://localhost：17006](http://localhost：17006)  
@@ -79,5 +77,5 @@ sh start-display.sh
 工程已经初始化好了生产者和消费者，所以启动后就可以在监控页面看到流通的消息数据，由于后端的数据采集是1分钟采集一次需等候数据刷新。
 
 
-4.停止工程
+4.停止工程          
 执行 stop-display.sh stop-heartbeat.sh stop-gather.sh 这三个脚本即可

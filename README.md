@@ -19,7 +19,7 @@
    收集客户端生产者和消费者的心跳数据
 4. 监控前端展示模块(sia-rabbitmq-plus-display)   
    将收集到的mq信息和心跳数据展示在前台页面
-5. 消息队列使用客户端demo模块（sia-rabbitmq-plus-demo)
+5. 消息队列使用客户端demo模块（sia-rabbitmq-plus-demo)          
    一个springoot工程如何使用sia-rabbitmqPlus
     
 &emsp;&emsp;监控流程如下：
@@ -119,9 +119,9 @@ RabbitMQ队列服务集群化，支持动态增删集群节点。 增加镜像�
 
 * groupCode：发布订阅模式下的交换机，对应MQ服务器的exchange
 
-* SendOldP2P 点对点发送模式发送内容为对象
+* SendOldP2P: 点对点发送模式发送内容为对象
 
-* SendNewP2P 点对点发送模式发送内容为字符串
+* SendNewP2P: 点对点发送模式发送内容为字符串
 
 
 # SIA相关开源产品链接：
