@@ -39,7 +39,7 @@ redis.testOnReturn: false
 
 #listen to client
 #rabbitmq服务器地址
-spring.rabbitmq.host: 10.143.135.65
+spring.rabbitmq.host: 127.0.0.1
 spring.rabbitmq.port: 5672
 spring.rabbitmq.username: admin
 spring.rabbitmq.password: admin

@@ -58,9 +58,7 @@
                                 <mkdir dir="target/build"/>
                                 <mkdir dir="config"/>
                                 <mkdir dir="bin"/>
-                                <mkdir dir="target/build/logs"/>
                                 <mkdir dir="target/build/bin"/>
-                                <mkdir dir="target/build/thirdparty"/>
 
                                 <copy todir="target/build/bin">
                                     <fileset file="../sia-rabbitmq-plus-display/target/sia-rabbitmq-plus-display-1.0.0.jar"></fileset>

@@ -53,6 +53,6 @@ redis.testOnBorrow: true
 redis.testOnReturn: false
 
 #listen to MQ server
-SIA_RABBITMQ_HTTP: http://10.143.135.65:15672/api/queues
+SIA_RABBITMQ_HTTP: http://127.0.0.1:15672/api/queues
 SIA_RABBITMQ_HTTP_USERNAME: admin
 SIA_RABBITMQ_HTTP_PASSWORD: admin
