@@ -40,8 +40,8 @@ rabbitMQ的安装和配置详见官方文档,单机或集群都行
 
 * 打包成功后，会在~/sia-rabbitmq-plus/sia-rabbitmq-plus-build-component 目录下出现target文件，target文件中的.zip文件即为项目安装包。
 
-* 打开安装包所在文件夹，将安装包解压，得到task目录，其中包括2个子目录bin和config。bin目录下是工程启动和停止脚本，config是配置文件用于配置mysql和rabbitmq的配置。
-目录如图所示：<br>
+* 打开安装包所在文件夹，将安装包解压，得到rabbitmqplus目录，其中包括2个子目录bin和config。bin目录下是工程启动和停止脚本，config是配置文件用于配置mysql和rabbitmq的配置。
+目录内容如图所示：<br>
     <img src="./pic/config.jpg" width="70%" height="30%"><br>
     <img src="./pic/bin.jpg" width="70%" height="30%">
 
