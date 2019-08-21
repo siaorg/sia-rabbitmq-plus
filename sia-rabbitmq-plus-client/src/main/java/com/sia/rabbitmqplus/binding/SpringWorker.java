@@ -97,7 +97,7 @@ public class SpringWorker implements Runnable {
 
 			@Override
 			public void handleShutdownSignal(String consumerTag, ShutdownSignalException sig) {
-				LOGGER.error(Const.SIA_LOG_PREFIX + "[网络断开，skytrain尝试重连]", sig);
+				LOGGER.error(Const.SIA_LOG_PREFIX + "[网络断开，sia尝试重连]", sig);
 			}
 		};
 

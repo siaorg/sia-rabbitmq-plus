@@ -12,7 +12,7 @@ public interface EmailService {
 
     /**
      * 发送预警邮件
-     * 
+     * 我们是通过feign调邮件接口发送邮件的，您需自己实现邮件发送接口
      * @param json
      * @return
      */

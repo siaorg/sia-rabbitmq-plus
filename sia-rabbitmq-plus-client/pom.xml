@@ -5,7 +5,7 @@
 
 	<groupId>com.sia</groupId>
 	<artifactId>sia-rabbitmq-plus-client</artifactId>
-	<version>5.2</version>
+	<version>1.0</version>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -96,31 +96,6 @@
 					<target>${jar.target}</target>
 					<encoding>UTF-8</encoding>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>findbugs-maven-plugin</artifactId>
-				<!--2.5会有时间转换的问题 -->
-				<version>2.3.2</version>
-				<configuration>
-					<threshold>High</threshold>
-					<effort>Default</effort>
-					<findbugsXmlOutput>true</findbugsXmlOutput>
-					<findbugsXmlOutputDirectory>${basedir}/target</findbugsXmlOutputDirectory>
-					<excludeFilterFile>${basedir}/findbugs.exclude.xml</excludeFilterFile>
-					<!--<includeFilterFile>${basedir}\findbugs.include.xml</includeFilterFile> -->
-				</configuration>
-				<executions>
-					<execution>
-						<id>attach-source</id>
-						<phase>install</phase>
-						<!-- 要绑定到的生命周期的阶段 -->
-						<goals>
-							<goal>check</goal>
-							<!-- 要绑定的插件的目标 -->
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 			<plugin>
 				<artifactId>maven-source-plugin</artifactId>

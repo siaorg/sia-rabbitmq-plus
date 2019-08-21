@@ -2,8 +2,8 @@
 
 ## 一. mysql初始化
 ```sql
-DROP TABLE IF EXISTS `skytrain_queue_message_info_history`;
-CREATE TABLE `skytrain_queue_message_info_history` (
+DROP TABLE IF EXISTS `sia_queue_message_info_history`;
+CREATE TABLE `sia_queue_message_info_history` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `queue_name` varchar(100) NOT NULL, #队列名称
   `un_consume_message_num` int(11) DEFAULT NULL,#残留消息数量

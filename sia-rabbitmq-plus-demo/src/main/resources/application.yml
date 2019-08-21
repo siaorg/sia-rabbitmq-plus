@@ -1,0 +1,6 @@
+#应用名称
+spring.application.name: sia-rabbitmq-plus-demo
+#应用中文名称
+spring.application.cnname: 队列信息采集系统demo
+#应用端口号
+server.port: 8080

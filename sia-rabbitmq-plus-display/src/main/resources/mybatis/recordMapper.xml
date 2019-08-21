@@ -13,7 +13,7 @@
 		publish_message_num as publishMessageNum,
 		deliver_message_num as
 		deliverMessageNum,worktime
-		from skytrain_queue_message_info_history
+		from sia_queue_message_info_history
 		where queue_name = #{queueName} and
 		worktime between #{startTime} and
 		#{endTime}
@@ -25,7 +25,7 @@
 		,sum(deliver_message_num) as deliverMessageNumSum,
 		date_format(worktime,'%Y-%m-%d %H') as realtime
 		from
-		skytrain_queue_message_info_history
+		sia_queue_message_info_history
 		where queue_name = #{queueName} and
 		worktime between #{startTime} and #{endTime}
 		group by
@@ -38,7 +38,7 @@
 		,sum(deliver_message_num) as deliverMessageNumSum,
 		date_format(worktime,'%Y-%m-%d') as realtime
 		from
-		skytrain_queue_message_info_history
+		sia_queue_message_info_history
 		where queue_name = #{queueName} and
 		worktime between #{startTime} and #{endTime}
 		group by

@@ -1,7 +1,7 @@
 # 开发指南
 
 
-## skytrain-client消息发送配置
+## sia-client消息发送配置
 ### 1、准备工作
 
 + 发送端需要配置`siaparameters.properties`文件(**文件名不可更改**)
@@ -10,11 +10,11 @@
 
 RABBITMQ_HOST=10.100.66.81
 RABBITMQ_PORT=5672
-SKYTRAIN_LOG_ROOT=D:/logs/send
-SKYTRAIN_LOG_FILESIZE=10MB
-SKYTRAIN_LOG_FILENUMS=5
-PROJECT_NAME=skytrain_client_test
-PROJECT_DESCRIPTION=skytrain_project_team
+SIA_LOG_ROOT=D:/logs/send
+SIA_LOG_FILESIZE=10MB
+SIA_LOG_FILENUMS=5
+PROJECT_NAME=sia_client_test
+PROJECT_DESCRIPTION=sia_project_team
 EMAIL_RECEVIERS=xinliang@creditease.cn,pengfeili23@creditease.cn
 
 ```
@@ -22,9 +22,9 @@ EMAIL_RECEVIERS=xinliang@creditease.cn,pengfeili23@creditease.cn
 
 + `RABBITMQ_PORT`，MQ服务器对外暴露的服务端口（必须）
 
-+ `SKYTRAIN_LOG_ROOT`，自定义日志输出路径（可选，默认系统当前路径）。发送接收消息产生的日志按照队列名在指定路径生成
++ `SIA_LOG_ROOT`，自定义日志输出路径（可选，默认系统当前路径）。发送接收消息产生的日志按照队列名在指定路径生成
 
-+ `SKYTRAIN_LOG_FILESIZE`，自定义日志大小（可选，默认20MB，单位：【KB、MB、GB】）SKYTRAIN_LOG_FILENUMS，自定义日志个数（可选，默认10个）
++ `SIA_LOG_FILESIZE`，自定义日志大小（可选，默认20MB，单位：【KB、MB、GB】）SIA_LOG_FILENUMS，自定义日志个数（可选，默认10个）
 
 注意：默认消息日志大小为：20MB*10，循环日志，项目组可根据实际需求设置大小及个数
 
@@ -45,10 +45,10 @@ PropertyHelper.setProfilePath("文件所在目录");
 设置，就能正确加载。配置文件的读取优先级从1.->2.->3.，如果最终没有找到，会有出错信息，按照提示解决即可。一般把该文件与其他配置文件放在一起即可。
 
 4. 启动参数添加
-在启动时，添加JVM参数 -DSKYTRAIN_FILE_PATH=文件所在目录  
+在启动时，添加JVM参数 -DSIA_FILE_PATH=文件所在目录  
 这种方式与3.二选一即可
 
-## skytrain-client消息接收配置
+## sia-client消息接收配置
 
 ###	1、接收端需要配置 siaparameters.properties 文件
 
@@ -61,20 +61,20 @@ PropertyHelper.setProfilePath("文件所在目录");
 **点对点模式接收配置**：
 
  ```properties
- skytrain_client_test_send_p2p={"unConsumeMessageAlarmNum":200,"unConsumeMessageAlarmGrowthTimes":10,"className":"skytrainDemo.RecevieP2P","methodName":"execRun","autoAck":"false","threadPoolSize":"4"}
+ sia_client_test_send_p2p={"unConsumeMessageAlarmNum":200,"unConsumeMessageAlarmGrowthTimes":10,"className":"siaDemo.RecevieP2P","methodName":"execRun","autoAck":"false","threadPoolSize":"4"}
  ```
 
 **发布订阅模式接收配置**：
 
 ```properties
-skytrain_client_test_send_pubsub@skytrain_client_test_receive_message={"unConsumeMessageAlarmNum":200,"unConsumeMessageAlarmGrowthTimes":10,"className":"skytrainDemo.ReceviePubSub","methodName":"execRun","autoAck":"true","threadPoolSize":"4"}
+sia_client_test_send_pubsub@sia_client_test_receive_message={"unConsumeMessageAlarmNum":200,"unConsumeMessageAlarmGrowthTimes":10,"className":"siaDemo.ReceviePubSub","methodName":"execRun","autoAck":"true","threadPoolSize":"4"}
 ```
 
-+ skytrain_client_test_send_p2p，MQ服务器的接收队列名，对应发送端的businessCode（点对点模式，必须），项目组自行设置，需要以PROJECT_NAME 开头
++ sia_client_test_send_p2p，MQ服务器的接收队列名，对应发送端的businessCode（点对点模式，必须），项目组自行设置，需要以PROJECT_NAME 开头
 
-+ skytrain_client_test_send_pubsub，MQ服务器接收交换机名，对应发送端的groupCode（发布订阅模式，必须），项目组自行设置。
++ sia_client_test_send_pubsub，MQ服务器接收交换机名，对应发送端的groupCode（发布订阅模式，必须），项目组自行设置。
 
-+ skytrain_client_test_receive_message，MQ服务器的与交换机绑定的队列名（发布订阅模式，必须），项目组自行设置。
++ sia_client_test_receive_message，MQ服务器的与交换机绑定的队列名（发布订阅模式，必须），项目组自行设置。
 
 + unConsumeMessageAlarmNum，自定义队列累积条数预警阈值，超过则发预警邮件（可选，默认为100条）
 
@@ -110,20 +110,20 @@ Consumer.start();
 #### 如果使用Spring的bean相关配置：
 例：
 ```xml
-<bean id="helloWorld" class="skytrainDemo.testBean" />
+<bean id="helloWorld" class="siaDemo.testBean" />
 ```
 上面的对应设置为：  
 
 点对点接收配置：
 
 ```properties
-skytrain_client_test_send_p2p={"unConsumeMessageAlarmNum":200,"unConsumeMessageAlarmGrowthTimes":10,"beanName":"helloWorld","beanMethodName":"getMessage","autoAck":"false","threadPoolSize":"4"}
+sia_client_test_send_p2p={"unConsumeMessageAlarmNum":200,"unConsumeMessageAlarmGrowthTimes":10,"beanName":"helloWorld","beanMethodName":"getMessage","autoAck":"false","threadPoolSize":"4"}
 ```
 
 发布订阅接收配置：
 
 ```properties
-skytrain_client_test_send_pubsub@skytrain_client_test_receive_message={"unConsumeMessageAlarmNum":200,"unConsumeMessageAlarmGrowthTimes":10,"beanName":"helloWorld","beanMethodName":"getMessage","autoAck":"false","threadPoolSize":"4"}
+sia_client_test_send_pubsub@sia_client_test_receive_message={"unConsumeMessageAlarmNum":200,"unConsumeMessageAlarmGrowthTimes":10,"beanName":"helloWorld","beanMethodName":"getMessage","autoAck":"false","threadPoolSize":"4"}
 ```
 
 + beanName，bean的名字，需要在 Spring 的 applicationContext.xml 中配置，如下所示

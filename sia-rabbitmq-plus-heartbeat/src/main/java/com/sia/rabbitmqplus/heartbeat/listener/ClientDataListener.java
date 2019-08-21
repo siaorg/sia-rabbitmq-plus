@@ -27,7 +27,7 @@ import org.springframework.stereotype.Component;
  * @date 16/11/11.
  */
 @Component
-@RabbitListener(queues = "SKYTRAIN_CLIENT_LISTEN_QUEUE")
+@RabbitListener(queues = "SIA_CLIENT_LISTEN_QUEUE")
 public class ClientDataListener {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ClientDataListener.class);

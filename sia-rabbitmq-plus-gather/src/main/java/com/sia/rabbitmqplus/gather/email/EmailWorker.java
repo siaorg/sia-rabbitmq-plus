@@ -23,10 +23,9 @@ public class EmailWorker {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EmailWorker.class);
 
-    @Value("${SKYTRAIN_DEFAULT_EMAIL}")
+    @Value("${SIA_DEFAULT_EMAIL}")
     protected String adminEmailers;
 
-    @Autowired
     private EmailService emailService;
 
     /**

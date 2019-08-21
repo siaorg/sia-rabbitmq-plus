@@ -21,17 +21,17 @@ import javax.sql.DataSource;
 @Configuration
 public class DataSourceConfig {
 
-    @Bean(name = "skytrainDataSource")
-    @Qualifier("skytrainDataSource")
+    @Bean(name = "siaDataSource")
+    @Qualifier("siaDataSource")
     @Primary
-    @ConfigurationProperties(prefix = "spring.datasource.skytrain")
-    public DataSource skytrainDataSource() {
+    @ConfigurationProperties(prefix = "spring.datasource.sia")
+    public DataSource siaDataSource() {
 
         return DataSourceBuilder.create().build();
     }
 
     @Bean(name = "sqlSessionFactory")
-    public SqlSessionFactory sqlSessionFactory(@Qualifier("skytrainDataSource") DataSource dataSource)
+    public SqlSessionFactory sqlSessionFactory(@Qualifier("siaDataSource") DataSource dataSource)
             throws Exception {
 
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
@@ -41,7 +41,7 @@ public class DataSourceConfig {
     }
 
     @Bean(name = "transactionManager")
-    public DataSourceTransactionManager transactionManager(@Qualifier("skytrainDataSource") DataSource dataSource) {
+    public DataSourceTransactionManager transactionManager(@Qualifier("siaDataSource") DataSource dataSource) {
 
         return new DataSourceTransactionManager(dataSource);
     }
