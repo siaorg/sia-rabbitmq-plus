@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
  *  @date 2017/9/10
  */
 @SpringBootApplication
-@EnableEurekaClient
 @Controller
 @ComponentScan("com.sia")
 public class Application {

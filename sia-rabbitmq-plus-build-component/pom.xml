@@ -5,7 +5,7 @@
 
     <groupId>com.sia</groupId>
     <artifactId>sia-rabbitmq-plus-build-component</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
 
@@ -15,6 +15,7 @@
         <module>../sia-rabbitmq-plus-gather</module>
         <module>../sia-rabbitmq-plus-heartbeat</module>
         <module>../sia-rabbitmq-plus-common</module>
+        <module>../sia-rabbitmq-plus-demo</module>
     </modules>
 
     <build>
@@ -57,28 +58,22 @@
                                 <mkdir dir="target/build"/>
                                 <mkdir dir="config"/>
                                 <mkdir dir="bin"/>
-                                <mkdir dir="target/build/logs"/>
                                 <mkdir dir="target/build/bin"/>
-                                <mkdir dir="target/build/thirdparty"/>
 
                                 <copy todir="target/build/bin">
-                                    <fileset file="../sia-rabbitmq-plus-client/target/sia-rabbitmq-plus-client-5.2.jar"></fileset>
+                                    <fileset file="../sia-rabbitmq-plus-display/target/sia-rabbitmq-plus-display-1.0.0.jar"></fileset>
                                 </copy>
 
                                 <copy todir="target/build/bin">
-                                    <fileset file="../sia-rabbitmq-plus-display/target/sia-rabbitmq-plus-display-1.0-SNAPSHOT.jar"></fileset>
+                                    <fileset file="../sia-rabbitmq-plus-gather/target/sia-rabbitmq-plus-gather-1.0.0.jar"></fileset>
                                 </copy>
 
                                 <copy todir="target/build/bin">
-                                    <fileset file="../sia-rabbitmq-plus-gather/target/sia-rabbitmq-plus-gather-1.0-SNAPSHOT.jar"></fileset>
+                                    <fileset file="../sia-rabbitmq-plus-heartbeat/target/sia-rabbitmq-plus-heartbeat-1.0.0.jar"></fileset>
                                 </copy>
 
                                 <copy todir="target/build/bin">
-                                    <fileset file="../sia-rabbitmq-plus-heartbeat/target/sia-rabbitmq-plus-heartbeat-1.0-SNAPSHOT.jar"></fileset>
-                                </copy>
-
-                                <copy todir="target/build/bin">
-                                    <fileset file="../sia-rabbitmq-plus-common/target/sia-rabbitmq-plus-common-1.0-SNAPSHOT.jar"></fileset>
+                                    <fileset file="../sia-rabbitmq-plus-demo/target/sia-rabbitmq-plus-demo-1.0.0.jar"></fileset>
                                 </copy>
 
                                 <copy todir="target/build/config">

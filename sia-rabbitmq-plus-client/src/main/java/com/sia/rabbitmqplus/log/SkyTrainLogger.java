@@ -40,14 +40,14 @@ public class SkyTrainLogger {
 			Layout layout = new PatternLayout("%d %p [%c] - %m%n");
 			Appender appender = null;
 			try {
-				if (System.getProperty(Const.SKYTRAIN_DAILY_LOG) != null) {
+				if (System.getProperty(Const.SIA_DAILY_LOG) != null) {
 					appender = new DailyRollingFileAppender(layout,
-							Const.SKYTRAIN_LOG_ROOT + exchangeOrQueueName + ".log", "'.'yyyy-MM-dd");
+							Const.SIA_LOG_ROOT + exchangeOrQueueName + ".log", "'.'yyyy-MM-dd");
 				} else {
-					appender = new RollingFileAppender(layout, Const.SKYTRAIN_LOG_ROOT + exchangeOrQueueName + ".log");
+					appender = new RollingFileAppender(layout, Const.SIA_LOG_ROOT + exchangeOrQueueName + ".log");
 					((RollingFileAppender) appender)
-							.setMaximumFileSize(toFileSize(Const.SKYTRAIN_LOG_FILESIZE, MAX_FILE_SIZE));
-					((RollingFileAppender) appender).setMaxBackupIndex(Const.SKYTRAIN_LOG_FILENUMS);
+							.setMaximumFileSize(toFileSize(Const.SIA_LOG_FILESIZE, MAX_FILE_SIZE));
+					((RollingFileAppender) appender).setMaxBackupIndex(Const.SIA_LOG_FILENUMS);
 				}
 			} catch (IOException ex) {
 				LOGGER_SELF.error(Const.SIA_LOG_PREFIX, ex);

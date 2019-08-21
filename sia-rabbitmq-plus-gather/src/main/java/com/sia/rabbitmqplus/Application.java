@@ -12,7 +12,6 @@ import org.springframework.cloud.netflix.feign.EnableFeignClients;
  * 2017/10/26.
  */
 @SpringBootApplication(scanBasePackages = { "com.sia", "com.sia.rabbitmqplus"})
-@EnableEurekaClient
 @EnableFeignClients
 public class Application {
 

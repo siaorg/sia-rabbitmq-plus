@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 /**
  * @author xinliang on 2017/10/27.
  */
-@FeignClient(name = "rabbitmq-http", url = "${SKYTRAIN_RABBITMQ_HTTP}")
+@FeignClient(name = "rabbitmq-http", url = "${SIA_RABBITMQ_HTTP}")
 public interface TaskService {
 
     /**用于调用rabbitmq接口

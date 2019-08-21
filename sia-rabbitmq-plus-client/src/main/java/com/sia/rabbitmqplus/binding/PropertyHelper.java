@@ -17,7 +17,7 @@ public class PropertyHelper {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(PropertyHelper.class);
 	private static String currentPath = null;
-	private static final String SKYTRAIN_FILE_PATH ="SKYTRAIN_FILE_PATH";
+	private static final String SIA_FILE_PATH ="SIA_FILE_PATH";
 	private PropertyHelper() {
 
 	}
@@ -58,8 +58,8 @@ public class PropertyHelper {
 	protected static String getCurrentPath() {
 		if (currentPath != null) {
 			return currentPath;
-		} else if (System.getProperty(SKYTRAIN_FILE_PATH) != null) {
-			return System.getProperty(SKYTRAIN_FILE_PATH);
+		} else if (System.getProperty(SIA_FILE_PATH) != null) {
+			return System.getProperty(SIA_FILE_PATH);
 		} else {
 			File temp = new File("");
 			return temp.getAbsolutePath();

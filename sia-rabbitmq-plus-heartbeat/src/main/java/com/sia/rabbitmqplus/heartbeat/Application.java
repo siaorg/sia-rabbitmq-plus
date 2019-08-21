@@ -13,7 +13,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  */
 @SpringBootApplication
 @EnableScheduling
-@EnableEurekaClient
 public class Application {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);

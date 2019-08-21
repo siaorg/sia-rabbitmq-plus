@@ -31,10 +31,10 @@ public class TaskHandler {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TaskHandler.class);
 
-    @Value("${SKYTRAIN_RABBITMQ_HTTP_USERNAME}")
+    @Value("${SIA_RABBITMQ_HTTP_USERNAME}")
     protected String rabbitmqHttpUserName;
 
-    @Value("${SKYTRAIN_RABBITMQ_HTTP_PASSWORD}")
+    @Value("${SIA_RABBITMQ_HTTP_PASSWORD}")
     protected String rabbitmqHttpPassword;
 
     @Autowired
@@ -233,7 +233,10 @@ public class TaskHandler {
 
     private static final long SEVEN_DAYS = 7 * 24 * 60 * 60 * 1000L;
 
-    @Scheduled(initialDelay = 10000L, fixedRate = 60000L)
+    /**
+     * 定时模块表示从10s开始，每隔1小时执行一次，可自定义设置。建议配合开源产品sia-task使用任务调度
+     */
+    @Scheduled(initialDelay = 10000L, fixedRate = 3600000L)
     @RequestMapping(value = "/clean", method = { RequestMethod.POST }, produces = "application/json;charset=UTF-8")
     @CrossOrigin(methods = { RequestMethod.POST }, origins = "*")
     @ResponseBody

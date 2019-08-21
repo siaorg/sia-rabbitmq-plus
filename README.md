@@ -19,9 +19,11 @@
    收集客户端生产者和消费者的心跳数据
 4. 监控前端展示模块(sia-rabbitmq-plus-display)   
    将收集到的mq信息和心跳数据展示在前台页面
+5. 消息队列使用客户端demo模块（sia-rabbitmq-plus-demo)          
+   一个springoot工程如何使用sia-rabbitmqPlus
     
 &emsp;&emsp;监控流程如下：
-![监控流程](docs/pic/监控流程.jpg)
+![监控流程](docs/pic/监控流程.png)
 
 # RabbitMQ的特性
 &emsp;&emsp;消息队列中间件(Message Queue Middleware ，简称为MQ) 是指利用高效可靠的消息传递，机制进行与平台无关的数据交流，并基于数据通信来进行分布式系统的集成。通过提供消息传，递和消息排队模型，它可以在分布式环境下扩展进程间的通信。作为众多消息中间件之一的。RabbitMQ发展到今天被越来越多的人认可，这和它在易用性、扩展性、可靠性和高可用性等方面的卓著表现是分不开的。
@@ -90,8 +92,11 @@ RabbitMQ队列服务集群化，支持动态增删集群节点。 增加镜像�
 # 监控页面预览
   监控页面可以直观的看到每个队列的消费情况、预警邮箱、接收的ip、发送的ip通过颜色区分队列的健康情况，以及最多7天的历史消息信息。具体查看[使用指南](docs/USERSGUIDE.md)
 
-![队列监控页面](docs/pic/队列监控.png)
-
+![队列监控页面](docs/pic/队列监控.png)        
+    <center>队列列表页面</center>
+![队列监控详情](docs/pic/history_time_min.png)
+  <center>队列监控详情</center>               
+  
 # Sia-rabbitmq-plus重要指标
  
   * 吞吐量（每秒最大请求量）            
@@ -113,6 +118,10 @@ RabbitMQ队列服务集群化，支持动态增删集群节点。 增加镜像�
 * businessCode: businessCode是两个系统间通讯的的唯一的标示符，对应MQ服务器的queue
 
 * groupCode：发布订阅模式下的交换机，对应MQ服务器的exchange
+
+* SendOldP2P: 点对点发送模式发送内容为对象
+
+* SendNewP2P: 点对点发送模式发送内容为字符串
 
 
 # SIA相关开源产品链接：

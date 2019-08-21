@@ -50,7 +50,7 @@ public class ClientDataGather {
 	}
 
 	private static final Map<String, Map<String, Integer>> DELIVER_QUEUE_OBJECT = new ConcurrentHashMap<String, Map<String, Integer>>();
-	private static final String CLIENT_LISTEN_QUEUE = "SKYTRAIN_CLIENT_LISTEN_QUEUE";
+	private static final String CLIENT_LISTEN_QUEUE = "SIA_CLIENT_LISTEN_QUEUE";
 	private static final String RECEIVE_QUEUE_FILE = "receivequeue.properties";
 
 	private ClientDataGather() {
