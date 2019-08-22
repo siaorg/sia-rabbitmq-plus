@@ -18,21 +18,21 @@ PROJECT_DESCRIPTION=sia_project_team
 EMAIL_RECEVIERS=xinliang@creditease.cn,pengfeili23@creditease.cn
 
 ```
-+ `RABBITMQ_HOST`，MQ服务器的IP地址（必须）
++ `RABBITMQ_HOST` ：MQ服务器的IP地址（必须）
 
-+ `RABBITMQ_PORT`，MQ服务器对外暴露的服务端口（必须）
++ `RABBITMQ_PORT` : MQ服务器对外暴露的服务端口（必须）
 
-+ `SIA_LOG_ROOT`，自定义日志输出路径（可选，默认系统当前路径）。发送接收消息产生的日志按照队列名在指定路径生成
++ `SIA_LOG_ROOT` ：自定义日志输出路径（可选，默认系统当前路径）。发送接收消息产生的日志按照队列名在指定路径生成
 
-+ `SIA_LOG_FILESIZE`，自定义日志大小（可选，默认20MB，单位：【KB、MB、GB】）SIA_LOG_FILENUMS，自定义日志个数（可选，默认10个）
++ `SIA_LOG_FILESIZE` ：自定义日志大小（可选，默认20MB，单位：【KB、MB、GB】）SIA_LOG_FILENUMS，自定义日志个数（可选，默认10个）
 
 注意：默认消息日志大小为：20MB*10，循环日志，项目组可根据实际需求设置大小及个数
 
-+ `PROJECT_NAME`，项目组名称（必须），注意接收的队列名必须以此开头。如果是发送者，请让接收者先启动（因为发送者不建立队列）
++ `PROJECT_NAME` ：项目组名称（必须），注意接收的队列名必须以此开头。如果是发送者，请让接收者先启动（因为发送者不建立队列）
 
-+ `PROJECT_DESCRIPTION`，项目组描述，对项目组的（中文）描述（可选）
++ `PROJECT_DESCRIPTION` ：项目组描述，对项目组的（中文）描述（可选）
 
-+ `EMAIL_RECEVIERS`，预警邮件接收者，邮箱为公司邮箱，多个按逗号隔开（必须）
++ `EMAIL_RECEVIERS` ：预警邮件接收者，邮箱为公司邮箱，多个按逗号隔开（必须）
 
 ### 2、siaparameters.properties 配置文件的读取
 
