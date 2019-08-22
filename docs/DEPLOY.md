@@ -18,10 +18,10 @@ CREATE TABLE `sia_queue_message_info_history` (
 
 ```
 ## 二. redis安装
-reids的安装和配置详见官方文档,单机或集群模式都行
+redis的安装和配置详见官方文档,单机或集群模式都行。
 
 ## 三. rabbitMQ 安装
-rabbitMQ的安装和配置详见官方文档,单机或集群都行
+rabbitMQ的安装和配置详见官方文档,单机或集群模式都行。
 
 ## 项目部署
 
@@ -40,7 +40,7 @@ rabbitMQ的安装和配置详见官方文档,单机或集群都行
 
 * 打包成功后，会在~/sia-rabbitmq-plus/sia-rabbitmq-plus-build-component 目录下出现target文件，target文件中的.zip文件即为项目安装包。
 
-* 打开安装包所在文件夹，将安装包解压，得到rabbitmqplus目录，其中包括2个子目录bin和config。bin目录下是工程启动和停止脚本，config是配置文件用于配置mysql和rabbitmq的配置。
+* 打开安装包所在文件夹，将安装包解压，得到rabbitmqplus目录，其中包括2个子目录bin和config。bin目录下是工程启动和停止脚本，config是配置文件用于配置mysql和rabbitmq的配置。
 目录内容如图所示：<br>
     <img src="./pic/config.jpg" width="70%" height="30%"><br>
     <img src="./pic/bin.jpg" width="70%" height="30%">
@@ -63,10 +63,10 @@ sh start-display.sh
 即可看到sia-rabbitmq-plus监控后台页面。
 ![监控页面](./pic/启动后页面.png)
 
-启动完上述三个工程后，心跳监听队列和收集定时任务以及前端工程都已经准备就绪了，但是没有消息的流通，消费者，发送、接收条数都为0。接下来我们要生产和消费消息。
+启动完上述三个工程后，心跳监听队列和采集rabbitmq信息的定时任务以及前端工程都已经准备就绪了，但是没有消息的流通，消费者，发送、接收条数都为0。接下来我们要生产和消费消息。
 
 * 测试方式一：    
-&emsp;&emsp; 修改~/sia-rabbitmq-plus/sia-rabbitmq-plus-demo/src/main/resources/siaparameters.properties 文件中的rabbitmq连接参数。
+&emsp;&emsp; 修改~/sia-rabbitmq-plus/sia-rabbitmq-plus-demo/src/main/resources/siaparameters.properties 文件中的rabbitmq的相关连接参数。
 到~/sia-rabbitmq-plus/sia-rabbitmq-plus-demo/src/main/java/com/sia/rabbitmqplus/demo/Application.java 中启动工程。
 
 * 测试方式二：   
@@ -74,8 +74,8 @@ sh start-display.sh
 到~/sia-rabbitmq-plus/sia-rabbitmq-plus-demo/src/test/java/com.sia.demo包下修改测试类BaseJunit和ReceiveP2P中文件读取位置。
 运行SendP2PTest类中的testSendNewP2P方法和ReceiveP2P类中的main方法就分别启动了生产者和消费者。
 
-工程已经初始化好了生产者和消费者，所以启动后就可以在监控页面看到流通的消息数据，由于后端的数据采集是1分钟采集一次需等候数据刷新。
+启动后就可以在监控页面看到流通的消息数据，由于后端的数据采集是1分钟采集一次需等候数据刷新。
 
 
 4.停止工程          
-执行 stop-display.sh stop-heartbeat.sh stop-gather.sh 这三个脚本即可
+执行 stop-display.sh stop-heartbeat.sh stop-gather.sh 这三个脚本即可。
