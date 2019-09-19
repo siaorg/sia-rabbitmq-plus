@@ -8,7 +8,7 @@
 
     <img src="docs/pic/newlog.jpeg" width="30%" height="30%">
     
-R
+RabbitMQ Plus
 ===
 [使用指南](docs/USERSGUIDE.md)     
 [开发指南](docs/DEVELOPGUIDE.md)             
